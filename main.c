@@ -6,6 +6,6 @@
  */
 
 int main() {
-	printf("Hola mundo!");
+	printf("Hola mundo desde C!");
 	return 0;
 }
