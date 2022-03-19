@@ -1,10 +1,3 @@
-/*
- * main.c
- *
- *  Created on: 18 mar 2022
- *      Author: asier
- */
-
 #include <string.h>
 #include <stdbool.h>
 #include "handler/DBH.h"
@@ -63,15 +56,43 @@ int main() {
 				 "FOREIGN KEY (COD_S) REFERENCES SUPERMERCADO (COD_S),"
 				 "FOREIGN KEY (DNI_EMP) REFERENCES EMPLEADO (DNI_EMP));";
 
+
 	sqlite3 *db;
 	db = initDB("DeustoMarket.db");
+	executeStatement(sql1, db);
 	executeStatement(sql2, db);
 	executeStatement(sql3, db);
-	executeStatement(sql1, db);
 	executeStatement(sql4, db);
 	executeStatement(sql5, db);
 	executeStatement(sql6, db);
 	executeStatement(sql7, db);
+	executeStatement("INSERT INTO EMPLEADO VALUES ('111', 'Iker', 2000, '2022-01-01', 'Bilbao','111')", db);
+	executeStatement("INSERT INTO EMPLEADO VALUES ('222', 'Asier', 2000, '2022-01-02', 'Getxo','111')", db);
+	executeStatement("INSERT INTO EMPLEADO VALUES ('333', 'Alejandra', 2000, '2022-01-03', 'Derio','111')", db);
+	executeStatement("INSERT INTO EMPLEADO VALUES ('444', 'Maria', 2000, '2022-01-04', 'Barakaldo','111')", db);
+
+	Data data;
+	sqlite3_stmt *stmt;
+	int filas;
+	int columnas;
+
+	data = executeQuery("SELECT * FROM EMPLEADO", db);
+
+	filas = data.rows;
+	columnas  = data.cols;
+	stmt = data.stmt;
+
+	for (int i = 0; i<filas; i++) {
+		sqlite3_step(stmt); //Pasa al siguiente dato
+		for (int j = 0; j<columnas; j++) {
+			printf("%s\n", sqlite3_column_text(stmt, j)); //Imprime un dato de columna
+		}
+	}
+
+
+
+
+
 	closeDB(db);
 
 
