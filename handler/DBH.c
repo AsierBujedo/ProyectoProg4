@@ -13,10 +13,9 @@ sqlite3* initDB(char name[]) {
 
 	 res = sqlite3_open(name, &db);
 	   if (res) {
-	       printf(sqlite3_errmsg(db));
-	       exit(0);
+	       logFile(ERROR, sqlite3_errmsg(db));
 	     } else {
-	       printf("Base de datos abierta correctamente\n");
+
 	     }
 	return db;
 }
@@ -28,12 +27,12 @@ void executeStatement(char sql[], sqlite3 *db) {
 	res = sqlite3_exec(db, sql, NULL, 0, &error);
 	   if (res != SQLITE_OK)
 	     {
-	       fprintf(stderr, "Error: %s\n", error);
+	       logFile(ERROR, error);
 	       sqlite3_free(error);
 	     }
 	   else
 	     {
-	       fprintf(stdout, "Tarea ejecutada\n");
+		  logFile(INFO, "Sentencia ejecutada correctamente");
 	     }
 }
 
@@ -46,7 +45,7 @@ Data executeQuery(char sql[], sqlite3 *db){
     rc = sqlite3_prepare_v2(db, sql, -1, &stmt, 0);
 
     if (rc != SQLITE_OK) {
-        fprintf(stderr, "Error: %s\n", sqlite3_errmsg(db));
+        logFile(ERROR, sqlite3_errmsg(db));
     }
 
     cols = sqlite3_column_count(stmt);
@@ -56,12 +55,12 @@ Data executeQuery(char sql[], sqlite3 *db){
        }
     sqlite3_reset(stmt);
 
-    	for(int i = 0; i<= rows-1; i++){
-    		sqlite3_step(stmt);
-    		for (int j = 0; j<=cols-1; j++) {
-    			printf("Cols: %i, Rows %i Text: %s\n", j, i, sqlite3_column_text(stmt, j));
-    		}
-    	}
+//    	for(int i = 0; i<= rows-1; i++){
+//    		sqlite3_step(stmt);
+//    		for (int j = 0; j<=cols-1; j++) {
+//    			printf("Cols: %i, Rows %i Text: %s\n", j, i, sqlite3_column_text(stmt, j));
+//    		}
+//    	}
 
 
     Data content;
@@ -70,10 +69,12 @@ Data executeQuery(char sql[], sqlite3 *db){
     content.stmt = stmt;
 
     sqlite3_reset(stmt);
+    logFile(INFO, "Consulta realizada correctamente");
     return content;
 }
 
 void closeDB(sqlite3 *db) {
 	sqlite3_close(db);
 	free(db);
+	logFile(INFO, "Base de datos cerrada correctamente");
 }

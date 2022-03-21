@@ -5,9 +5,11 @@
  *      Author: asier
  */
 #include "lib\sqlite3.h"
+#include "logger\logger.h"
 #include<stdio.h>
 #include<stdlib.h>
 #include<stdbool.h>
+
 
 #ifndef DBH_H_
 #define DBH_H_

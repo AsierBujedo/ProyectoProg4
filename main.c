@@ -3,6 +3,7 @@
 #include "handler/DBH.h"
 
 int main() {
+	openLogger("marketlog.log");
 
 	char *sql2 = "DROP TABLE IF EXISTS PROVINCIA;"
 					 "CREATE TABLE PROVINCIA ("
@@ -94,7 +95,7 @@ int main() {
 
 
 	closeDB(db);
-
+	closeLogger();
 
 	return 0;
 }
