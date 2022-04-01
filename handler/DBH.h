@@ -6,6 +6,7 @@
  */
 #include "lib\sqlite3.h"
 #include "logger\logger.h"
+#include "properties/properties.h"
 #include<stdio.h>
 #include<stdlib.h>
 #include<stdbool.h>

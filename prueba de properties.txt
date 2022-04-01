@@ -1,0 +1,17 @@
+	Properties prp;
+	prp.numProp = 3;
+	char** propName = malloc(sizeof(char*) * prp.numProp);
+	propName[0] = "IP";
+	propName[1] = "PORT";
+	propName[2] = "RUTA_LOG";
+	prp.propName = propName;
+
+	char** propValues = malloc(sizeof(char*) * prp.numProp);
+	propValues[0] = "127.0.0.1";
+	propValues[1] = "1024";
+	propValues[2] = "C:/";
+	prp.propValue = propValues;
+	createProperties(&prp, "config.prop");
+
+	Properties loadprp;
+	loadProperties(&loadprp, "config.prop");
