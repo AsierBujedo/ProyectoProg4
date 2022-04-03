@@ -6,3 +6,4 @@ Debug/ProyectoProg4.exe
 /Debug/
 .settings/language.settings.xml
 marketlog.log
+*.db

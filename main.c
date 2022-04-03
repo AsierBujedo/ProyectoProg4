@@ -1,6 +1,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include "handler/DBH.h"
+#include "menu/menu.h"
 
 int main() {
 	openLogger("marketlog.log");
@@ -90,9 +91,7 @@ int main() {
 		}
 	}
 
-
-
-
+	mainMenu(db);
 
 	closeDB(db);
 	closeLogger();

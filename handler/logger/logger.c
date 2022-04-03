@@ -5,8 +5,8 @@ static FILE* f;
 
 void openLogger(char name[]) {
 f = fopen(name, "w");
-fprintf(f, "Fichero log\n----------------------------------\nDeustoMarket\n");
-fprintf(stderr, "Fichero log\n----------------------------------\nDeustoMarket\n");
+fprintf(f, "------------------------------\nFichero de logs - DEUSTOMARKET\n------------------------------\n");
+fprintf(stderr, "\n------------------------------\nFichero de logs - DEUSTOMARKET\n------------------------------\n");
 }
 
 int closeLogger() {
@@ -30,5 +30,10 @@ void logFile(LEVEL l, char desc[]) {
 		strcat(strcpy(buffer, "\n[ERROR]   "), desc);
 		fprintf(f, buffer);
 		fprintf(stderr, buffer);
+	} else if (l == END) {
+			char buffer[100];
+			strcat(strcpy(buffer, "\n[END]   "), desc);
+			fprintf(f, buffer);
+			fprintf(stderr, buffer);
 	}
 }

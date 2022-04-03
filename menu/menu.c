@@ -12,7 +12,7 @@ void manageProdMenu() {
 	int opt;
 	char str[10];
 
-	printf("-------------------\n");
+	printf("\n-------------------\n");
 	printf("GESTIONAR PRODUCTOS\n");
 	printf("-------------------\n\n");
 	printf("1. Añadir producto\n");
@@ -27,18 +27,22 @@ void manageProdMenu() {
 
 	switch (opt) {
 	case 1:
-//		addProduct(); SIN CODIFICAR
+		logFile(INFO, "Opción 1 de manageProdMenu seleccionada (addProduct)");
+		addProduct(); // SIN CODIFICAR
 		break;
 
 	case 2:
-//		deleteProduct(); SIN CODIFICAR
+		logFile(INFO, "Opción 2 de manageProdMenu seleccionada (deleteProduct)");
+		deleteProduct(); // SIN CODIFICAR
 		break;
 
 	case 3:
-//		modproduct(); SIN CODIFICAR
+		logFile(INFO, "Opción 3 de manageProdMenu seleccionada (modproduct)");
+		modProduct(); // SIN CODIFICAR
 		break;
 
 	case 4:
+		logFile(INFO, "Opción 4 de manageProdMenu seleccionada (modBDDMenu<<)");
 		modBDDMenu();
 		break;
 	}
@@ -49,7 +53,7 @@ void manageSuperMenu() {
 	int opt;
 	char str[10];
 
-	printf("-----------------------\n");
+	printf("\n-----------------------\n");
 	printf("GESTIONAR SUPERMERCADOS\n");
 	printf("-----------------------\n\n");
 	printf("1. Añadir supermercado\n");
@@ -64,19 +68,23 @@ void manageSuperMenu() {
 
 	switch (opt) {
 	case 1:
-//		addSupermarket(); SIN CODIFICAR
+		logFile(INFO, "Opción 1 de manageSuperMenu seleccionada (addSupermarket)");
+		addSupermarket();
 		break;
 
 	case 2:
-//		deleteSupermarket(); SIN CODIFICAR
+		logFile(INFO, "Opción 2 de manageSuperMenu seleccionada (deleteSupermarket)");
+		deleteSupermarket(); // SIN CODIFICAR
 		break;
 
 	case 3:
-//		modSupermarket(); SIN CODIFICAR
+		logFile(INFO, "Opción 3 de manageSuperMenu seleccionada (modSupermarket())");
+		modSupermarket(); // SIN CODIFICAR
 		break;
 
 	case 4:
-		modBDDMenu(); // Llamada a método de NIVEL: 4
+		logFile(INFO, "Opción 4 de manageSuperMenu seleccionada (modBDDMenu<<)");
+		modBDDMenu();
 		break;
 	}
 }
@@ -86,7 +94,7 @@ void modBDDMenu() {
 	int opt;
 	char str[10];
 
-	printf("-------------\n");
+	printf("\n-------------\n");
 	printf("MODIFICAR BDD\n");
 	printf("-------------\n\n");
 	printf("1. Gestionar supermercados\n");
@@ -100,15 +108,18 @@ void modBDDMenu() {
 
 	switch (opt) {
 	case 1:
+		logFile(INFO, "Opción 1 de modBDDMenu seleccionada (>>manageSuperMenu)");
 		manageSuperMenu();
 		break;
 
 	case 2:
+		logFile(INFO, "Opción 2 de modBDDMenu seleccionada (>>manageProdMenu)");
 		manageProdMenu();
 		break;
 
 	case 3:
-		adminMenu(); // Llamada a método de NIVEL: 3
+		logFile(INFO, "Opción 3 de modBDDMenu seleccionada (adminMenu<<)");
+		adminMenu();
 		break;
 	}
 }
@@ -118,12 +129,12 @@ void queryBDDMenu() {
 	int opt;
 	char str[10];
 
-	printf("------------------\n");
+	printf("\n------------------\n");
 	printf("CONSULTAS A LA BDD\n");
 	printf("------------------\n\n");
 	printf("1. Visualizar supermercados\n");
 	printf("2. Visualizar productos\n");
-	printf("3. Volver\n");
+	printf("3. Volver a menú principal\n");
 	printf("Introduzca una opción: ");
 	fflush(stdout);
 	fgets(str, 2, stdin);
@@ -132,16 +143,22 @@ void queryBDDMenu() {
 
 	switch (opt) {
 	case 1:
-//		showSupermarkets(); SIN CODIFICAR
+		logFile(INFO, "Opción 1 de queryBDDMenu seleccionada (showSupermarkets)");
+		showSupermarkets(); // SIN CODIFICAR
+		logFile(INFO, "mainMenu<<");
+		mainMenu();
 		break;
 
 	case 2:
-//		showProducts(); SIN CODIFICAR
+		logFile(INFO, "Opción 2 de queryBDDMenu seleccionada (showProducts)");
+		showProducts(); // SIN CODIFICAR
+		logFile(INFO, "mainMenu<<");
+		mainMenu();
 		break;
 
 	case 3:
-		// Hay que comprobar de alguna manera si ha accedido como usuario o administrador
-		// userMenu() o adminMenu();
+		logFile(INFO, "Opción 3 de queryBDDMenu seleccionada (mainMenu<<)");
+		mainMenu();
 		break;
 	}
 }
@@ -151,7 +168,7 @@ void adminMenu() {
 	int opt;
 	char str[10];
 
-	printf("------------------\n");
+	printf("\n------------------\n");
 	printf("MENÚ ADMINISTRADOR\n");
 	printf("------------------\n\n");
 	printf("1. Modificar BDD\n");
@@ -166,18 +183,24 @@ void adminMenu() {
 
 	switch (opt) {
 	case 1:
+		logFile(INFO, "Opción 1 de adminMenu seleccionada (>>modBDDMenu)");
 		modBDDMenu();
 		break;
 
 	case 2:
+		logFile(INFO, "Opción 2 de adminMenu seleccionada (>>queryBDDMenu)");
 		queryBDDMenu();
 		break;
 
 	case 3:
-//		showStatistics();
+		logFile(INFO, "Opción 3 de adminMenu seleccionada (showStatistics)");
+		showStatistics();
+		logFile(INFO, "mainMenu<<");
+		mainMenu();
 		break;
 
 	case 4:
+		logFile(INFO, "Opción 4 de adminMenu seleccionada (mainMenu<<)");
 		mainMenu();
 		break;
 	}
@@ -188,7 +211,7 @@ void userMenu() {
 	int opt;
 	char str[10];
 
-	printf("------------\n");
+	printf("\n------------\n");
 	printf("MENÚ USUARIO\n");
 	printf("------------\n\n");
 	printf("1. Consultas a la BDD\n");
@@ -202,14 +225,19 @@ void userMenu() {
 
 	switch (opt) {
 	case 1:
+		logFile(INFO, "Opción 1 de userMenu seleccionada (>>queryBDDMenu)");
 		queryBDDMenu();
 		break;
 
 	case 2:
-//		showStatistics();
+		logFile(INFO, "Opción 2 de userMenu seleccionada (showStatistics)");
+		showStatistics();
+		logFile(INFO, "mainMenu<<");
+		mainMenu();
 		break;
 
 	case 3:
+		logFile(INFO, "Opción 3 de userMenu seleccionada (mainMenu<<)");
 		mainMenu();
 		break;
 	}
@@ -220,7 +248,7 @@ void adminAccessMenu() {
 	int pass;
 	char str[10];
 
-	printf("--------------------\n");
+	printf("\n--------------------\n");
 	printf("ACCESO ADMINISTRADOR\n");
 	printf("--------------------\n\n");
 	printf(
@@ -231,21 +259,24 @@ void adminAccessMenu() {
 	sscanf(str, "%i", &pass);
 
 	if (pass == 11111) {
+		logFile(INFO, "Contraseña de administrador correcta (>>adminMenu)");
 		adminMenu();
 	} else if (str[0] == 'q') {
+		logFile(INFO, "mainMenu<<");
 		mainMenu();
 	} else {
+		logFile(INFO, "adminAccessMenu<<");
 		adminAccessMenu();
 	}
 
 }
 
 // NIVEL DE MENÚ: 1
-void mainMenu() {
+void mainMenu(sqlite3* db) {
 	int opt;
 	char str[10];
 
-	printf("------------\n");
+	printf("\n------------\n");
 	printf("DESUTOMARKET\n");
 	printf("------------\n\n");
 	printf("1. Entrar como usuario\n");
@@ -259,14 +290,17 @@ void mainMenu() {
 
 	switch (opt) {
 	case 1:
+		logFile(INFO, "Opción 1 de mainMenu seleccionada (>>userMenu)");
 		userMenu();
 		break;
 
 	case 2:
+		logFile(INFO, "Opción 2 de mainMenu seleccionada (>>adminMenu)");
 		adminAccessMenu();
 		break;
 
 	case 3:
+		logFile(END, "Opción 3 de mainMenu seleccionada (ejecución finalizada)");
 		exit(0);
 	}
 
