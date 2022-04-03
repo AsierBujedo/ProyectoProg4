@@ -5,7 +5,7 @@ void createProperties(Properties *properties, char name[]) {
 	FILE *f = fopen(name, "w");
 
 	for (int i = 0; i < properties->numProp; i++) {
-		fprintf(f, "--%s\n", properties->propName[i]); //NOMBRE DE LA PROPIEDAD
+		fprintf(f, "-%s\n", properties->propName[i]); //NOMBRE DE LA PROPIEDAD
 		fprintf(f, "%s\n", properties->propValue[i]); //VALOR DE LA PROPIEDAD
 	}
 
