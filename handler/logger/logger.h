@@ -4,8 +4,6 @@
  *  Created on: 19 mar 2022
  *      Author: asier
  */
-#include<stdio.h>
-#include<stdlib.h>
 #ifndef LOGGER_H_
 #define LOGGER_H_
 

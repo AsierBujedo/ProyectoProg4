@@ -1,12 +1,17 @@
 #include"logger.h"
+#include<stdio.h>
+#include<stdlib.h>
 #include<string.h>
-static FILE* f;
+#include "../properties/properties.h"
 
+static FILE *f;
 
 void openLogger(char name[]) {
-f = fopen(name, "w");
-fprintf(f, "------------------------------\nFichero de logs - DEUSTOMARKET\n------------------------------\n");
-fprintf(stderr, "\n------------------------------\nFichero de logs - DEUSTOMARKET\n------------------------------\n");
+	f = fopen(name, "w");
+	fprintf(f,
+			"------------------------------\nFichero de logs - DEUSTOMARKET\n------------------------------\n");
+	fprintf(stderr,
+			"\n------------------------------\nFichero de logs - DEUSTOMARKET\n------------------------------\n");
 }
 
 int closeLogger() {
@@ -15,6 +20,7 @@ int closeLogger() {
 }
 
 void logFile(LEVEL l, char desc[]) {
+
 	if (l == INFO) {
 		char buffer[100];
 		strcat(strcpy(buffer, "\n[INFO]   "), desc);
@@ -31,9 +37,9 @@ void logFile(LEVEL l, char desc[]) {
 		fprintf(f, buffer);
 		fprintf(stderr, buffer);
 	} else if (l == END) {
-			char buffer[100];
-			strcat(strcpy(buffer, "\n[END]   "), desc);
-			fprintf(f, buffer);
-			fprintf(stderr, buffer);
+		char buffer[100];
+		strcat(strcpy(buffer, "\n[END]   "), desc);
+		fprintf(f, buffer);
+		fprintf(stderr, buffer);
 	}
 }

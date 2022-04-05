@@ -1,9 +1,13 @@
 #include <string.h>
-#include <stdbool.h>
+#include <stdlib.h>
+#include <stdio.h>
 #include "handler/DBH.h"
+#include "handler/logger/logger.h"
+#include "handler/properties/properties.h"
 #include "menu/menu.h"
 
 int main() {
+
 	openLogger("marketlog.log");
 
 	Properties prop;
@@ -11,14 +15,14 @@ int main() {
 	if ((file = fopen("config.prop", "r"))) {
 		fclose(file);
 		loadProperties(&prop, "config.prop");
-		logFile(INFO, "Properties successfully loaded");
 	} else {
-		prop.numProp = 4;
+		prop.numProp = 5;
 		char **propName = malloc(sizeof(char*) * prop.numProp);
 		propName[0] = "IP";
 		propName[1] = "PORT";
 		propName[2] = "RUTA_LOG";
 		propName[3] = "ADMIN_PASS";
+		propName[4] = "DEBUG";
 		prop.propName = propName;
 
 		char **propValues = malloc(sizeof(char*) * prop.numProp);
@@ -26,10 +30,10 @@ int main() {
 		propValues[1] = "1024";
 		propValues[2] = "C:/";
 		propValues[3] = "11111";
+		propValues[4] = "1";
 		prop.propValue = propValues;
 
 		createProperties(&prop, "config.prop");
-		logFile(INFO, "config file created");
 	}
 
 
@@ -88,8 +92,8 @@ int main() {
 			"FOREIGN KEY (COD_S) REFERENCES SUPERMERCADO (COD_S),"
 			"FOREIGN KEY (DNI_EMP) REFERENCES EMPLEADO (DNI_EMP));";
 
-	sqlite3 *db;
-	db = initDB("DeustoMarket.db");
+
+	initDB("DeustoMarket.db");
 	executeStatement(sql1);
 	executeStatement(sql2);
 	executeStatement(sql3);
@@ -126,9 +130,9 @@ int main() {
 		}
 	}
 
-	mainMenu(db);
+	mainMenu();
 
-	closeDB(db);
+	closeDB();
 	closeLogger();
 
 	return 0;

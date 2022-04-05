@@ -1,4 +1,9 @@
 #include "properties.h"
+#include "../logger/logger.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 #define MAX 1000
 
 void createProperties(Properties *properties, char name[]) {
@@ -8,7 +13,7 @@ void createProperties(Properties *properties, char name[]) {
 		fprintf(f, "-%s\n", properties->propName[i]); //NOMBRE DE LA PROPIEDAD
 		fprintf(f, "%s\n", properties->propValue[i]); //VALOR DE LA PROPIEDAD
 	}
-
+	logFile(INFO, "config file created");
 	fclose(f);
 
 }
@@ -42,7 +47,7 @@ void allocate(Properties *prop, char name[]) {
 
 	prop->propName = nombres;
 	prop->propValue = valores;
-
+	logFile(INFO, "Properties successfully loaded");
 	fclose(f);
 
 }

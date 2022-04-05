@@ -5,18 +5,21 @@
  *      Author: asier
  */
 #include"DBH.h"
+#include "logger\logger.h"
+#include<stdio.h>
+#include<stdlib.h>
+
 static sqlite3 *db;
 
-sqlite3* initDB(char name[]) {
+void initDB(char name[]) {
 	 int res;
 
 	 res = sqlite3_open(name, &db);
 	   if (res) {
 	       logFile(ERROR, sqlite3_errmsg(db));
 	     } else {
-
+	    	 logFile(INFO, "DB opened");
 	     }
-	return db;
 }
 
 void executeStatement(char sql[]) {

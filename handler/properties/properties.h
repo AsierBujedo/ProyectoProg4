@@ -1,7 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
 #ifndef HANDLER_PROPERTIES_PROPERTIES_H_
 #define HANDLER_PROPERTIES_PROPERTIES_H_
 

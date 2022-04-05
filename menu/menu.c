@@ -6,7 +6,13 @@
  */
 
 #include "menu.h"
-#include "../handler/DBH.h"
+#include "../handler/logger/logger.h"
+#include "../functions/functions.h"
+#include "../handler/properties/properties.h"
+#include <stdio.h>
+#include <stdlib.h>
+
+Properties properties;
 
 // NIVEL DE MENÚ: 5 (administrador)
 void manageProdMenu() {
@@ -259,7 +265,10 @@ void adminAccessMenu() {
 	fflush(stdin);
 	sscanf(str, "%i", &pass);
 
-	if (pass == 11111) {
+	int propPass;
+	sscanf(properties.propValue[3], "%i", &propPass);
+
+	if (pass == propPass) {
 		logFile(INFO, "Contraseña de administrador correcta (>>adminMenu)");
 		adminMenu();
 	} else if (str[0] == 'q') {
@@ -273,9 +282,11 @@ void adminAccessMenu() {
 }
 
 // NIVEL DE MENÚ: 1
-void mainMenu(sqlite3* db) {
+void mainMenu() {
 	int opt;
 	char str[10];
+
+	loadProperties(&properties, "config.prop");
 
 	printf("\n------------\n");
 	printf("DESUTOMARKET\n");

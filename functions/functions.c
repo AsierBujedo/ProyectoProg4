@@ -5,9 +5,12 @@
  *      Author: Iker López
  */
 
-#include "methods.h"
+#include "functions.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include "../handler/DBH.h"
 
-void showStatistics(sqlite3 *db) {
+void showStatistics() {
 	char strAux[2];
 
 	printf("\n------------\n");
@@ -22,7 +25,7 @@ void showStatistics(sqlite3 *db) {
 	// FALTA CODIFICAR
 }
 
-void showSupermarkets(sqlite3 *db) {
+void showSupermarkets() {
 	char sql[100];
 	char strAux[2];
 
@@ -38,7 +41,7 @@ void showSupermarkets(sqlite3 *db) {
 	// FALTA CODIFICAR
 }
 
-void showProducts(sqlite3 *db) {
+void showProducts() {
 	char sql[100];
 	char strAux[2];
 
@@ -54,7 +57,7 @@ void showProducts(sqlite3 *db) {
 	// FALTA CODIFICAR
 }
 
-void addSupermarket(sqlite3 *db) {
+void addSupermarket() {
 	char sql[100];
 
 	char str1[26];
@@ -96,7 +99,7 @@ void addSupermarket(sqlite3 *db) {
 	fgets(strAux, 2, stdin);
 	fflush(stdin);
 }
-void deleteSupermarket(sqlite3 *db) {
+void deleteSupermarket() {
 	char sql[100];
 
 	printf("\n---------------------\n");
@@ -106,7 +109,7 @@ void deleteSupermarket(sqlite3 *db) {
 	// FALTA CODIFICAR
 }
 
-void modSupermarket(sqlite3 *db) {
+void modSupermarket() {
 	char sql[100];
 
 	printf("\n----------------------\n");
@@ -116,7 +119,7 @@ void modSupermarket(sqlite3 *db) {
 	// FALTA CODIFICAR
 }
 
-void addProduct(sqlite3 *db) {
+void addProduct() {
 	char sql[100];
 
 	printf("\n---------------\n");
@@ -126,7 +129,7 @@ void addProduct(sqlite3 *db) {
 	// FALTA CODIFICAR
 }
 
-void deleteProduct(sqlite3 *db) {
+void deleteProduct() {
 	char sql[100];
 
 	printf("\n-------------------\n");
@@ -136,7 +139,7 @@ void deleteProduct(sqlite3 *db) {
 	// FALTA CODIFICAR
 }
 
-void modProduct(sqlite3 *db) {
+void modProduct() {
 
 
 	printf("\n------------------\n");
