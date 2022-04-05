@@ -6,6 +6,7 @@
  */
 
 #include "menu.h"
+#include "../handler/DBH.h"
 
 // NIVEL DE MENÚ: 5 (administrador)
 void manageProdMenu() {

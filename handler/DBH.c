@@ -5,10 +5,9 @@
  *      Author: asier
  */
 #include"DBH.h"
-
+static sqlite3 *db;
 
 sqlite3* initDB(char name[]) {
-	 sqlite3 *db;
 	 int res;
 
 	 res = sqlite3_open(name, &db);
@@ -20,7 +19,7 @@ sqlite3* initDB(char name[]) {
 	return db;
 }
 
-void executeStatement(char sql[], sqlite3 *db) {
+void executeStatement(char sql[]) {
 	int res;
 	char *error;
 
@@ -36,7 +35,7 @@ void executeStatement(char sql[], sqlite3 *db) {
 	     }
 }
 
-Data executeQuery(char sql[], sqlite3 *db){
+Data executeQuery(char sql[]){
 	sqlite3_stmt *stmt;
 	int cols;
 	int rows;
@@ -73,7 +72,7 @@ Data executeQuery(char sql[], sqlite3 *db){
     return content;
 }
 
-void closeDB(sqlite3 *db) {
+void closeDB() {
 	sqlite3_close(db);
 	free(db);
 	logFile(INFO, "Base de datos cerrada correctamente");

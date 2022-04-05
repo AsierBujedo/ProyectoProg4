@@ -90,25 +90,21 @@ int main() {
 
 	sqlite3 *db;
 	db = initDB("DeustoMarket.db");
-	executeStatement(sql1, db);
-	executeStatement(sql2, db);
-	executeStatement(sql3, db);
-	executeStatement(sql4, db);
-	executeStatement(sql5, db);
-	executeStatement(sql6, db);
-	executeStatement(sql7, db);
+	executeStatement(sql1);
+	executeStatement(sql2);
+	executeStatement(sql3);
+	executeStatement(sql4);
+	executeStatement(sql5);
+	executeStatement(sql6);
+	executeStatement(sql7);
 	executeStatement(
-			"INSERT INTO EMPLEADO VALUES ('111', 'Iker', 2000, '2022-01-01', 'Bilbao','111')",
-			db);
+			"INSERT INTO EMPLEADO VALUES ('111', 'Iker', 2000, '2022-01-01', 'Bilbao','111')");
 	executeStatement(
-			"INSERT INTO EMPLEADO VALUES ('222', 'Asier', 2000, '2022-01-02', 'Getxo','111')",
-			db);
+			"INSERT INTO EMPLEADO VALUES ('222', 'Asier', 2000, '2022-01-02', 'Getxo','111')");
 	executeStatement(
-			"INSERT INTO EMPLEADO VALUES ('333', 'Alejandra', 2000, '2022-01-03', 'Derio','111')",
-			db);
+			"INSERT INTO EMPLEADO VALUES ('333', 'Alejandra', 2000, '2022-01-03', 'Derio','111')");
 	executeStatement(
-			"INSERT INTO EMPLEADO VALUES ('444', 'Maria', 2000, '2022-01-04', 'Barakaldo','111')",
-			db);
+			"INSERT INTO EMPLEADO VALUES ('444', 'Maria', 2000, '2022-01-04', 'Barakaldo','111')");
 
 	mainMenu();
 
@@ -117,7 +113,7 @@ int main() {
 	int filas;
 	int columnas;
 
-	data = executeQuery("SELECT * FROM EMPLEADO", db);
+	data = executeQuery("SELECT * FROM EMPLEADO");
 
 	filas = data.rows;
 	columnas = data.cols;

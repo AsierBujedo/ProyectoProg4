@@ -26,6 +26,7 @@ void allocate(Properties *prop, char name[]) {
 		strtok(buffer, "\n");
 		if (buffer[0] == '-') {
 			if (posEnName < props) {
+				buffer[0] = ' ';
 				nombres[posEnName] = malloc(sizeof(char)*MAX);
 				strcpy(nombres[posEnName], buffer);
 				posEnName++;

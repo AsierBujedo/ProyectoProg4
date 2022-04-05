@@ -22,8 +22,8 @@ typedef struct {
 } Data;
 
 sqlite3* initDB(char name[]);
-void executeStatement(char sql[], sqlite3 *db);
-Data executeQuery(char sql[], sqlite3 *db);
-void closeDB(sqlite3 *db);
+void executeStatement(char sql[]);
+Data executeQuery(char sql[]);
+void closeDB();
 
 #endif /* DBH_H_ */
