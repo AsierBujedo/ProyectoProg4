@@ -12,8 +12,8 @@ void mainMenu();
 void adminAccessMenu();
 void userMenu();
 void adminMenu();
-void queryBDDMenu();
-void modBDDMenu();
+void queryBDMenu();
+void updateBDMenu();
 void manageSuperMenu();
 void manageProdMenu();
 

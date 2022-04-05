@@ -1,17 +1,17 @@
 #include"logger.h"
+#include "../properties/properties.h"
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
-#include "../properties/properties.h"
 
 static FILE *f;
 
 void openLogger(char name[]) {
 	f = fopen(name, "w");
 	fprintf(f,
-			"------------------------------\nFichero de logs - DEUSTOMARKET\n------------------------------\n");
+			"------------------------------\nFichero log - DEUSTOMARKET\n------------------------------\n");
 	fprintf(stderr,
-			"\n------------------------------\nFichero de logs - DEUSTOMARKET\n------------------------------\n");
+			"\n------------------------------\nFichero log - DEUSTOMARKET\n------------------------------\n");
 }
 
 int closeLogger() {

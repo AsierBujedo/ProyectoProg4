@@ -6,9 +6,10 @@
  */
 
 #include "functions.h"
+#include "../handler/DBH.h"
+#include "../handler/logger/logger.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include "../handler/DBH.h"
 
 void showStatistics() {
 	char strAux[2];
@@ -17,44 +18,56 @@ void showStatistics() {
 	printf("ESTADÍSTICAS\n");
 	printf("------------\n\n");
 
+	// FALTA CODIFICAR
+
+	logFile(INFO, "Estadísticas mostradas");
+
 	printf("\n¡Estadísticas mostradas! Pulse ENTER para volver al menú principal: ");
 	fflush(stdout);
 	fgets(strAux, 2, stdin);
 	fflush(stdin);
-
-	// FALTA CODIFICAR
 }
 
 void showSupermarkets() {
 	char sql[100];
+
 	char strAux[2];
 
 	printf("\n-------------------------------\n");
 	printf("LISTA COMPLETA DE SUPERMERCADOS\n");
 	printf("-------------------------------\n\n");
 
+	// FALTA CODIFICAR
+
+//	executeQuery(sql);
+
+	logFile(INFO, "Lista completa de supermercados mostrada");
+
 	printf("\n¡Lista completa de supermercados mostrada! Pulse ENTER para volver al menú principal: ");
 	fflush(stdout);
 	fgets(strAux, 2, stdin);
 	fflush(stdin);
-
-	// FALTA CODIFICAR
 }
 
 void showProducts() {
 	char sql[100];
+
 	char strAux[2];
 
 	printf("\n---------------------------\n");
 	printf("LISTA COMPLETA DE PRODUCTOS\n");
 	printf("---------------------------\n\n");
 
+	// FALTA CODIFICAR
+
+//	executeQuery(sql);
+
+	logFile(INFO, "Lista completa de productos mostrada");
+
 	printf("\n¡Lista completa de productos mostrada! Pulse ENTER para volver al menú principal: ");
 	fflush(stdout);
 	fgets(strAux, 2, stdin);
 	fflush(stdin);
-
-	// FALTA CODIFICAR
 }
 
 void addSupermarket() {
@@ -77,22 +90,32 @@ void addSupermarket() {
 //	strcat(sql, str1);
 //	Supermercado1 --> 'Supermercado1'
 
+// FALTA CODIFICAR
+
 	printf("\nIntroduzca la dirección: ");
 	fflush(stdout);
 	fgets(str2, 36, stdin);
 	fflush(stdin);
+
+	// FALTA CODIFICAR
 
 	printf("\nIntroduzca el teléfono: ");
 	fflush(stdout);
 	fgets(str3, 10, stdin);
 	fflush(stdin);
 
+	// FALTA CODIFICAR
+
 	printf("\nIntroduzca los metros cuadrados: ");
 	fflush(stdout);
 	fgets(str4, 6, stdin);
 	fflush(stdin);
 
+	// FALTA CODIFICAR
+
 //	executeStatement(sql, db);
+
+	logFile(INFO, "Supermercado añadido");
 
 	printf("\n¡Supermercado añadido con éxito! Pulse ENTER para continuar: ");
 	fflush(stdout);
@@ -102,50 +125,105 @@ void addSupermarket() {
 void deleteSupermarket() {
 	char sql[100];
 
+	char strAux[2];
+
 	printf("\n---------------------\n");
 	printf("ELIMINAR SUPERMERCADO\n");
 	printf("-------------------\n\n");
 
 	// FALTA CODIFICAR
+
+//	executeStatement(sql, db);
+
+	logFile(INFO, "Supermercado eliminado");
+
+	printf("\n¡Supermercado eliminado correctamente! Pulse ENTER para continuar: ");
+	fflush(stdout);
+	fgets(strAux, 2, stdin);
+	fflush(stdin);
 }
 
-void modSupermarket() {
+void updateSupermarket() {
 	char sql[100];
 
+	char strAux[2];
+
 	printf("\n----------------------\n");
-	printf("MODIFICAR SUPERMERCADO\n");
+	printf("ACTUALIZAR SUPERMERCADO\n");
 	printf("----------------------\n\n");
 
 	// FALTA CODIFICAR
+
+//	executeStatement(sql, db);
+
+	logFile(INFO, "Supermercado actualizado");
+
+	printf("\n¡Supermercado actualizado correctamente! Pulse ENTER para continuar: ");
+	fflush(stdout);
+	fgets(strAux, 2, stdin);
+	fflush(stdin);
 }
 
 void addProduct() {
 	char sql[100];
+
+	char strAux[2];
 
 	printf("\n---------------\n");
 	printf("AÑADIR PRODUCTO\n");
 	printf("---------------\n\n");
 
 	// FALTA CODIFICAR
+
+//	executeStatement(sql, db);
+
+	logFile(INFO, "Producto añadido");
+
+	printf("\n¡Producto añadido con éxito! Pulse ENTER para continuar: ");
+	fflush(stdout);
+	fgets(strAux, 2, stdin);
+	fflush(stdin);
 }
 
 void deleteProduct() {
 	char sql[100];
+
+	char strAux[2];
 
 	printf("\n-------------------\n");
 	printf("ELIMINAR PRODUCTO\n");
 	printf("-------------------\n\n");
 
 	// FALTA CODIFICAR
+
+//	executeStatement(sql, db);
+
+	logFile(INFO, "Producto eliminado");
+
+	printf("\n¡Producto eliminado correctamente! Pulse ENTER para continuar: ");
+	fflush(stdout);
+	fgets(strAux, 2, stdin);
+	fflush(stdin);
 }
 
-void modProduct() {
+void updateProduct() {
+	char sql[100];
 
+	char strAux[2];
 
 	printf("\n------------------\n");
-	printf("MODIFICAR PRODUCTO\n");
+	printf("ACTUALIZAR PRODUCTO\n");
 	printf("------------------\n\n");
 
 	// FALTA CODIFICAR
+
+//	executeStatement(sql, db);
+
+	logFile(INFO, "Producto actualizado");
+
+	printf("\n¡Supermercado actualizado correctamente! Pulse ENTER para continuar: ");
+	fflush(stdout);
+	fgets(strAux, 2, stdin);
+	fflush(stdin);
 }
 

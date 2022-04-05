@@ -18,7 +18,7 @@ void initDB(char name[]) {
 	   if (res) {
 	       logFile(ERROR, sqlite3_errmsg(db));
 	     } else {
-	    	 logFile(INFO, "DB opened");
+	    	 logFile(INFO, "BD inicializada");
 	     }
 }
 
@@ -78,5 +78,5 @@ Data executeQuery(char sql[]){
 void closeDB() {
 	sqlite3_close(db);
 	free(db);
-	logFile(INFO, "Base de datos cerrada correctamente");
+	logFile(INFO, "BD cerrada correctamente");
 }

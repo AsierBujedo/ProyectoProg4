@@ -13,7 +13,7 @@ void createProperties(Properties *properties, char name[]) {
 		fprintf(f, "-%s\n", properties->propName[i]); //NOMBRE DE LA PROPIEDAD
 		fprintf(f, "%s\n", properties->propValue[i]); //VALOR DE LA PROPIEDAD
 	}
-	logFile(INFO, "config file created");
+	logFile(INFO, "Fichero de configuración creado");
 	fclose(f);
 
 }
@@ -47,7 +47,7 @@ void allocate(Properties *prop, char name[]) {
 
 	prop->propName = nombres;
 	prop->propValue = valores;
-	logFile(INFO, "Properties successfully loaded");
+	logFile(INFO, "Propiedades cragadas con éxito");
 	fclose(f);
 
 }

@@ -7,16 +7,15 @@
 
 #ifndef FUNCTIONS_FUNCTIONS_H_
 #define FUNCTIONS_FUNCTIONS_H_
-#include "../handler/DBH.h"
 
 void showStatistics();
 void showSupermarkets();
 void showProducts();
 void addSupermarket();
 void deleteSupermarket();
-void modSupermarket();
+void updateSupermarket();
 void addProduct();
 void deleteProduct();
-void modProduct();
+void updateProduct();
 
 #endif /* FUNCTIONS_FUNCTIONS_H_ */
