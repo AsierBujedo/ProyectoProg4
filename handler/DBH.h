@@ -11,43 +11,43 @@ typedef struct {
 
 typedef struct {
 	int loadingCode; //5 Cod -> 1
-	int code;
-	char* name;
-	char* dir;
-	int telf;
-	double m2;
+	int cod_s;
+	char* nom_s;
+	char* dir_s;
+	int tlf_s;
+	double metros_cuad_s;
+	int cod_ciu;
 } Supermercado;
 
 typedef struct {
 	int loadingCode; //6 Cod -> 2
-	char* DNI;
-	char* name;
-	double salario;
-	char* ncto;
-	char* dir;
-	char* DNI_JEFE;
+	char* dni_emp;
+	char* nom_emp;
+	double salario_emp;
+	char* fecha_ncto_emp;
+	char* dir_emp;
+	char* dni_jefe;
 } Empleado;
 
 typedef struct {
 	int loadingCode; //3 Cod -> 3
-	int code;
-	char* name;
+	int cod_ciu;
+	char* nom_ciu;
 	int cod_prov;
-
 } Ciudad;
 
 typedef struct {
 	int loadingCode; //2 Cod -> 4
 	int cod_prov;
-	char* name;
+	char* nom_prov;
 } Provincia;
 
 typedef struct {
 	int loadingCode; //4 Cod -> 5
-	int id;
-	char* name;
-	double precio;
-	char* desc;
+	int id_prod;
+	char* nom_prod;
+	double precio_prod;
+	char* desc_prod;
 } Producto;
 
 typedef struct {
@@ -59,7 +59,7 @@ typedef struct {
 typedef struct {
 	int loadingCode; //2 Cod -> 7
 	int cod_s;
-	char* DNI_emp;
+	char* dni_emp;
 } Trabaja;
 
 void initDB(char name[]);

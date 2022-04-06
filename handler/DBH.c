@@ -104,7 +104,7 @@ void csvLoader(char name[], int code) {
 				if (i == 0) {
 					Supermercado sup;
 					sup.loadingCode = 1;
-					sup.code = token;
+					sup.cod_s = token;
 					i++;
 				} else if (i == 1){
 
