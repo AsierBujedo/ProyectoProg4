@@ -280,7 +280,7 @@ void adminAccessMenu() {
 	sscanf(str, "%i", &pass);
 
 	int propPass;
-	sscanf(properties.propValue[3], "%i", &propPass);
+	sscanf(properties.propValue[2], "%i", &propPass);
 
 	if (pass == propPass) {
 		logFile(INFO, "Contraseña de administrador correcta (>>adminMenu)");

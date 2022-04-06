@@ -16,21 +16,19 @@ int main() {
 		fclose(file);
 		loadProperties(&prop, "config.prop");
 	} else {
-		prop.numProp = 5;
+		prop.numProp = 4;
 		char **propName = malloc(sizeof(char*) * prop.numProp);
 		propName[0] = "IP";
 		propName[1] = "PORT";
-		propName[2] = "RUTA_LOG";
-		propName[3] = "ADMIN_PASS";
-		propName[4] = "DEBUG";
+		propName[2] = "ADMIN_PASS";
+		propName[3] = "DEBUG";
 		prop.propName = propName;
 
 		char **propValues = malloc(sizeof(char*) * prop.numProp);
 		propValues[0] = "127.0.0.0";
 		propValues[1] = "1024";
-		propValues[2] = "C:/";
-		propValues[3] = "11111";
-		propValues[4] = "1";
+		propValues[2] = "11111";
+		propValues[3] = "1";
 		prop.propValue = propValues;
 
 		createProperties(&prop, "config.prop");
