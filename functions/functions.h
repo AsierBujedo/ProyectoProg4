@@ -7,10 +7,11 @@
 
 #ifndef FUNCTIONS_FUNCTIONS_H_
 #define FUNCTIONS_FUNCTIONS_H_
+#include <stdbool.h>
 
 void showStatistics();
-void showSupermarkets();
-void showProducts();
+void showSupermarkets(bool b);
+void showProducts(bool b);
 void addSupermarket();
 void deleteSupermarket();
 void updateSupermarket();

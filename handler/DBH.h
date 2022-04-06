@@ -67,7 +67,12 @@ void executeStatement(char sql[]);
 Data executeQuery(char sql[]);
 void closeDB();
 void getDB(sqlite3* database);
-void addSupermarketDB(char sql[], Supermercado* supermercado);
+void addSupermarketDB(char sql[], Supermercado s);
+void deleteSupermarketDB(char sql[], int cod_s);
+void updateSupermarketDB(char sql[], Supermercado s);
+void addProductDB(char sql[], Producto p);
+void deleteProductDB(char sql[], int id_prod);
+void updateProductDB(char sql[], Producto p);
 void csvLoader(char name[], int code);
 
 #endif /* DBH_H_ */

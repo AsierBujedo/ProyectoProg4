@@ -10,5 +10,4 @@ typedef struct {
 void loadProperties(Properties* properties, char name[]);
 void createProperties(Properties* properties, char name[]);
 
-
 #endif /* HANDLER_PROPERTIES_PROPERTIES_H_ */

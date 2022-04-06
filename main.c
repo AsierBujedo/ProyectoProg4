@@ -1,10 +1,10 @@
+#include "handler/DBH.h"
+#include "menu/menu.h"
+#include "handler/logger/logger.h"
+#include "handler/properties/properties.h"
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include "handler/DBH.h"
-#include "handler/logger/logger.h"
-#include "handler/properties/properties.h"
-#include "menu/menu.h"
 
 int main() {
 
@@ -110,7 +110,7 @@ int main() {
 //	executeStatement(
 //			"INSERT INTO EMPLEADO VALUES ('444', 'Maria', 2000, '2022-01-04', 'Barakaldo','111')");
 
-	mainMenu();
+//	mainMenu(false);
 
 	Data data;
 	sqlite3_stmt *stmt;
@@ -130,7 +130,7 @@ int main() {
 		}
 	}
 
-	mainMenu();
+	mainMenu(false);
 
 	closeDB();
 	closeLogger();

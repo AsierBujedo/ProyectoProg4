@@ -7,8 +7,9 @@
 
 #ifndef MENU_MENU_H_
 #define MENU_MENU_H_
+#include <stdbool.h>
 
-void mainMenu();
+void mainMenu(bool b);
 void adminAccessMenu();
 void userMenu();
 void adminMenu();

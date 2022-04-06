@@ -6,8 +6,8 @@
  */
 
 #include "menu.h"
-#include "../handler/logger/logger.h"
 #include "../functions/functions.h"
+#include "../handler/logger/logger.h"
 #include "../handler/properties/properties.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -35,22 +35,30 @@ void manageProdMenu() {
 	switch (opt) {
 	case 1:
 		logFile(INFO, "Opción 1 de manageProdMenu seleccionada (addProduct)");
-		addProduct(); // SIN CODIFICAR
+		addProduct();
+		logFile(INFO, "manageProdMenu<<");
+		manageProdMenu();
 		break;
 
 	case 2:
 		logFile(INFO, "Opción 2 de manageProdMenu seleccionada (deleteProduct)");
-		deleteProduct(); // SIN CODIFICAR
+		deleteProduct();
+		logFile(INFO, "manageProdMenu<<");
+		manageProdMenu();
 		break;
 
 	case 3:
 		logFile(INFO, "Opción 3 de manageProdMenu seleccionada (updateProduct)");
-		updateProduct(); // SIN CODIFICAR
+		updateProduct();
+		logFile(INFO, "manageProdMenu<<");
+		manageProdMenu();
 		break;
 
 	case 4:
 		logFile(INFO, "Opción 4 de manageProdMenu seleccionada (updateBDMenu<<)");
 		updateBDMenu();
+		logFile(INFO, "manageProdMenu<<");
+		manageProdMenu();
 		break;
 	}
 }
@@ -77,16 +85,22 @@ void manageSuperMenu() {
 	case 1:
 		logFile(INFO, "Opción 1 de manageSuperMenu seleccionada (addSupermarket)");
 		addSupermarket();
+		logFile(INFO, "manageSuperMenu<<");
+		manageSuperMenu();
 		break;
 
 	case 2:
 		logFile(INFO, "Opción 2 de manageSuperMenu seleccionada (deleteSupermarket)");
-		deleteSupermarket(); // SIN CODIFICAR
+		deleteSupermarket();
+		logFile(INFO, "manageSuperMenu<<");
+		manageSuperMenu();
 		break;
 
 	case 3:
 		logFile(INFO, "Opción 3 de manageSuperMenu seleccionada (updateSupermarket())");
-		updateSupermarket(); // SIN CODIFICAR
+		updateSupermarket();
+		logFile(INFO, "manageSuperMenu<<");
+		manageSuperMenu();
 		break;
 
 	case 4:
@@ -151,21 +165,21 @@ void queryBDMenu() {
 	switch (opt) {
 	case 1:
 		logFile(INFO, "Opción 1 de queryBDMenu seleccionada (showSupermarkets)");
-		showSupermarkets(); // SIN CODIFICAR
+		showSupermarkets(true);
 		logFile(INFO, "mainMenu<<");
-		mainMenu();
+		mainMenu(true);
 		break;
 
 	case 2:
 		logFile(INFO, "Opción 2 de queryBDMenu seleccionada (showProducts)");
-		showProducts(); // SIN CODIFICAR
+		showProducts(true);
 		logFile(INFO, "mainMenu<<");
-		mainMenu();
+		mainMenu(true);
 		break;
 
 	case 3:
 		logFile(INFO, "Opción 3 de queryBDMenu seleccionada (mainMenu<<)");
-		mainMenu();
+		mainMenu(true);
 		break;
 	}
 }
@@ -181,7 +195,7 @@ void adminMenu() {
 	printf("1. Actualizar BD\n");
 	printf("2. Consultas a la BD\n");
 	printf("3. Estadísticas\n");
-	printf("4. Volver\n");
+	printf("4. Volver al menú principal\n");
 	printf("Introduzca una opción: ");
 	fflush(stdout);
 	fgets(str, 2, stdin);
@@ -203,12 +217,12 @@ void adminMenu() {
 		logFile(INFO, "Opción 3 de adminMenu seleccionada (showStatistics)");
 		showStatistics();
 		logFile(INFO, "mainMenu<<");
-		mainMenu();
+		mainMenu(true);
 		break;
 
 	case 4:
 		logFile(INFO, "Opción 4 de adminMenu seleccionada (mainMenu<<)");
-		mainMenu();
+		mainMenu(true);
 		break;
 	}
 }
@@ -223,7 +237,7 @@ void userMenu() {
 	printf("------------\n\n");
 	printf("1. Consultas a la BD\n");
 	printf("2. Estadísticas\n");
-	printf("3. Volver\n");
+	printf("3. Volver al menú principal\n");
 	printf("Introduzca una opción: ");
 	fflush(stdout);
 	fgets(str, 2, stdin);
@@ -240,12 +254,12 @@ void userMenu() {
 		logFile(INFO, "Opción 2 de userMenu seleccionada (showStatistics)");
 		showStatistics();
 		logFile(INFO, "mainMenu<<");
-		mainMenu();
+		mainMenu(true);
 		break;
 
 	case 3:
 		logFile(INFO, "Opción 3 de userMenu seleccionada (mainMenu<<)");
-		mainMenu();
+		mainMenu(true);
 		break;
 	}
 }
@@ -259,7 +273,7 @@ void adminAccessMenu() {
 	printf("ACCESO ADMINISTRADOR\n");
 	printf("--------------------\n\n");
 	printf(
-			"Introduzca la clave (si quiere volver pulse 'q' y para continuar pulse ENTER): ");
+			"Introduzca la clave (si quiere volver al menú principal pulse 'q' y para continuar pulse ENTER): ");
 	fflush(stdout);
 	fgets(str, 6, stdin);
 	fflush(stdin);
@@ -273,7 +287,7 @@ void adminAccessMenu() {
 		adminMenu();
 	} else if (str[0] == 'q') {
 		logFile(INFO, "mainMenu<<");
-		mainMenu();
+		mainMenu(true);
 	} else {
 		logFile(INFO, "adminAccessMenu<<");
 		adminAccessMenu();
@@ -282,15 +296,22 @@ void adminAccessMenu() {
 }
 
 // NIVEL DE MENÚ: 1
-void mainMenu() {
+void mainMenu(bool b) {
 	int opt;
 	char str[10];
 
 	loadProperties(&properties, "config.prop");
 
-	printf("\n------------\n");
-	printf("DESUTOMARKET\n");
-	printf("------------\n\n");
+	if (b) {
+		printf("\n------------\n");
+		printf("DESUTOMARKET\n");
+		printf("------------\n\n");
+	} else {
+		printf("------------\n");
+		printf("DESUTOMARKET\n");
+		printf("------------\n\n");
+	}
+
 	printf("1. Entrar como usuario\n");
 	printf("2. Entrar como administrador\n");
 	printf("3. Salir\n");
