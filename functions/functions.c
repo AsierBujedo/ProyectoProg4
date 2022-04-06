@@ -29,7 +29,7 @@ void showStatistics() {
 }
 
 void showSupermarkets() {
-	char sql[100];
+	char *sql;
 
 	char strAux[2];
 
@@ -50,7 +50,7 @@ void showSupermarkets() {
 }
 
 void showProducts() {
-	char sql[100];
+	char *sql;
 
 	char strAux[2];
 
@@ -71,7 +71,7 @@ void showProducts() {
 }
 
 void addSupermarket() {
-	char sql[100];
+	char *sql;
 
 	char str1[26];
 	char str2[36];
@@ -123,7 +123,7 @@ void addSupermarket() {
 	fflush(stdin);
 }
 void deleteSupermarket() {
-	char sql[100];
+	char *sql;
 
 	char strAux[2];
 
@@ -144,7 +144,7 @@ void deleteSupermarket() {
 }
 
 void updateSupermarket() {
-	char sql[100];
+	char *sql;
 
 	char strAux[2];
 
@@ -165,7 +165,7 @@ void updateSupermarket() {
 }
 
 void addProduct() {
-	char sql[100];
+	char *sql;
 
 	char strAux[2];
 
@@ -186,7 +186,7 @@ void addProduct() {
 }
 
 void deleteProduct() {
-	char sql[100];
+	char *sql;
 
 	char strAux[2];
 
@@ -207,7 +207,7 @@ void deleteProduct() {
 }
 
 void updateProduct() {
-	char sql[100];
+	char *sql;
 
 	char strAux[2];
 
