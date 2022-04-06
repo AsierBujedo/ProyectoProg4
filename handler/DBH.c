@@ -9,6 +9,8 @@
 #include<stdio.h>
 #include<stdlib.h>
 
+#define MAX 1000
+
 static sqlite3 *db;
 
 void initDB(char name[]) {
@@ -79,4 +81,57 @@ void closeDB() {
 	sqlite3_close(db);
 	free(db);
 	logFile(INFO, "BD cerrada correctamente");
+}
+
+void csvLoader(char name[], int code) {
+
+	FILE *csv;
+	char row[MAX];
+	char *token;
+
+	csv = fopen(name, "r");
+
+	while (fgets(row, MAX, csv)) {
+		printf("Row: %s\n", row);
+
+		token = strtok(row, ",");
+
+		int atrib;
+
+		if (code == 1) {
+			int i = 0;
+			while (token != NULL) {
+				if (i == 0) {
+					Supermercado sup;
+					sup.loadingCode = 1;
+					sup.code = token;
+					i++;
+				} else if (i == 1){
+
+				}
+				printf("Token: %s\n", token);
+				token = strtok(NULL, ",");
+			}
+
+		} else if (code == 2) {
+			atrib = 6;
+
+		} else if (code == 3) {
+			atrib = 3;
+
+		} else if (code == 4) {
+			atrib = 2;
+
+		} else if (code == 5) {
+			atrib = 4;
+
+		} else if (code == 6) {
+			atrib = 2;
+
+		} else if (code == 7) {
+			atrib = 2;
+
+		}
+
+	}
 }
