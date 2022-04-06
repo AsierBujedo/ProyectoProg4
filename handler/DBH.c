@@ -11,17 +11,17 @@
 
 #define MAX 1000
 
-static sqlite3 *db;
+sqlite3 *db;
 
 void initDB(char name[]) {
-	 int res;
+	int res;
 
-	 res = sqlite3_open(name, &db);
-	   if (res) {
-	       logFile(ERROR, sqlite3_errmsg(db));
-	     } else {
-	    	 logFile(INFO, "BD inicializada");
-	     }
+	res = sqlite3_open(name, &db);
+	if (res) {
+		logFile(ERROR, sqlite3_errmsg(db));
+	} else {
+		logFile(INFO, "BD inicializada");
+	}
 }
 
 void executeStatement(char sql[]) {
@@ -29,35 +29,32 @@ void executeStatement(char sql[]) {
 	char *error;
 
 	res = sqlite3_exec(db, sql, NULL, 0, &error);
-	   if (res != SQLITE_OK)
-	     {
-	       logFile(ERROR, error);
-	       sqlite3_free(error);
-	     }
-	   else
-	     {
-		  logFile(INFO, "Sentencia ejecutada correctamente");
-	     }
+	if (res != SQLITE_OK) {
+		logFile(ERROR, error);
+		sqlite3_free(error);
+	} else {
+		logFile(INFO, "Sentencia ejecutada correctamente");
+	}
 }
 
-Data executeQuery(char sql[]){
+Data executeQuery(char sql[]) {
 	sqlite3_stmt *stmt;
 	int cols;
 	int rows;
 	int rc;
 
-    rc = sqlite3_prepare_v2(db, sql, -1, &stmt, 0);
+	rc = sqlite3_prepare_v2(db, sql, -1, &stmt, 0);
 
-    if (rc != SQLITE_OK) {
-        logFile(ERROR, sqlite3_errmsg(db));
-    }
+	if (rc != SQLITE_OK) {
+		logFile(ERROR, sqlite3_errmsg(db));
+	}
 
-    cols = sqlite3_column_count(stmt);
+	cols = sqlite3_column_count(stmt);
 
-    while (SQLITE_ROW == sqlite3_step(stmt)) {
-           	rows++;
-       }
-    sqlite3_reset(stmt);
+	while (SQLITE_ROW == sqlite3_step(stmt)) {
+		rows++;
+	}
+	sqlite3_reset(stmt);
 
 //    	for(int i = 0; i<= rows-1; i++){
 //    		sqlite3_step(stmt);
@@ -66,21 +63,41 @@ Data executeQuery(char sql[]){
 //    		}
 //    	}
 
+	Data content;
+	content.rows = rows;
+	content.cols = cols;
+	content.stmt = stmt;
 
-    Data content;
-    content.rows = rows;
-    content.cols = cols;
-    content.stmt = stmt;
-
-    sqlite3_reset(stmt);
-    logFile(INFO, "Consulta realizada correctamente");
-    return content;
+	sqlite3_reset(stmt);
+	logFile(INFO, "Consulta realizada correctamente");
+	return content;
 }
 
 void closeDB() {
 	sqlite3_close(db);
 	free(db);
 	logFile(INFO, "BD cerrada correctamente");
+}
+
+void addSupermarketDB(char sql[], Supermercado* supermercado) {
+	sqlite3_stmt * stmt;
+
+	sqlite3_prepare_v2(db, sql, strlen(sql) + 1, &stmt, NULL);
+
+	sqlite3_bind_int(stmt, 1, supermercado->cod_s);
+	sqlite3_bind_text(stmt, 2, supermercado->nom_s, strlen(supermercado->nom_s),
+			SQLITE_STATIC);
+	sqlite3_bind_text(stmt, 3, supermercado->dir_s, strlen(supermercado->dir_s),
+			SQLITE_STATIC);
+	sqlite3_bind_int(stmt, 4, supermercado->tlf_s);
+	sqlite3_bind_double(stmt, 5, supermercado->metros_cuad_s);
+	sqlite3_bind_int(stmt, 6, supermercado->cod_ciu);
+
+	if ((sqlite3_step(stmt)) != SQLITE_DONE) {
+		logFile(ERROR, "Error anadiendo supermercado");
+	} else {
+		logFile(INFO, "Supermercado anadido correctamente");
+	}
 }
 
 void csvLoader(char name[], int code) {
@@ -106,7 +123,7 @@ void csvLoader(char name[], int code) {
 					sup.loadingCode = 1;
 					sup.cod_s = token;
 					i++;
-				} else if (i == 1){
+				} else if (i == 1) {
 
 				}
 				printf("Token: %s\n", token);

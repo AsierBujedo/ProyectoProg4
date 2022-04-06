@@ -9,9 +9,10 @@
 #include "../handler/DBH.h"
 #include "../handler/logger/logger.h"
 #include <stdlib.h>
+#include <string.h>
 #include <stdio.h>
 
-#define MAX_LINE 36
+#define MAX_LINE 40
 
 void showStatistics() {
 	char strAux[2];
@@ -24,7 +25,8 @@ void showStatistics() {
 
 	logFile(INFO, "Estadísticas mostradas");
 
-	printf("\n¡Estadísticas mostradas! Pulse ENTER para volver al menú principal: ");
+	printf(
+			"\n¡Estadísticas mostradas! Pulse ENTER para volver al menú principal: ");
 	fflush(stdout);
 	fgets(strAux, 2, stdin);
 	fflush(stdin);
@@ -32,7 +34,7 @@ void showStatistics() {
 
 void showSupermarkets() {
 	char *sql = "SELECT * FROM SUPERMERCADO;";
-	int result;
+	//int result;
 	char strAux[2];
 
 	printf("\n-------------------------------\n");
@@ -41,24 +43,34 @@ void showSupermarkets() {
 
 	Data datos = executeQuery(sql);
 
-	do {
-		result = sqlite3_step(datos.stmt);
-		if (result == SQLITE_ROW) {
-			printf("%i\t", sqlite3_column_int(datos.stmt, 0));
-			printf("%s\t", (char*) sqlite3_column_text(datos.stmt, 1));
-			printf("%s\t", (char*) sqlite3_column_text(datos.stmt, 2));
-			printf("%i\t", sqlite3_column_int(datos.stmt, 3));
-			printf("%f\n", sqlite3_column_double(datos.stmt, 4));
-		}
+	while (sqlite3_step(datos.stmt) == SQLITE_ROW) {
+		printf("%i\t", sqlite3_column_int(datos.stmt, 0));
+		printf("%s\t", (char*) sqlite3_column_text(datos.stmt, 1));
+		printf("%s\t", (char*) sqlite3_column_text(datos.stmt, 2));
+		printf("%i\t", sqlite3_column_int(datos.stmt, 3));
+		printf("%f\n", sqlite3_column_double(datos.stmt, 4));
+	}
 
-	} while (result == SQLITE_ROW);
+//	do {
+//		result = sqlite3_step(datos.stmt);
+//		if (result == SQLITE_ROW) {
+//			printf("%i\t", sqlite3_column_int(datos.stmt, 0));
+//			printf("%s\t", (char*) sqlite3_column_text(datos.stmt, 1));
+//			printf("%s\t", (char*) sqlite3_column_text(datos.stmt, 2));
+//			printf("%i\t", sqlite3_column_int(datos.stmt, 3));
+//			printf("%f\n", sqlite3_column_double(datos.stmt, 4));
+//		}
+//
+//	} while (result == SQLITE_ROW);
+
 	printf("\n");
 
 	sqlite3_finalize(datos.stmt);
 
 	logFile(INFO, "Lista completa de supermercados mostrada");
 
-	printf("\n¡Lista completa de supermercados mostrada! Pulse ENTER para volver al menú principal: ");
+	printf(
+			"\n¡Lista completa de supermercados mostrada! Pulse ENTER para volver al menú principal: ");
 	fflush(stdout);
 	fgets(strAux, 2, stdin);
 	fflush(stdin);
@@ -66,7 +78,7 @@ void showSupermarkets() {
 
 void showProducts() {
 	char *sql = "SELECT * FROM PRODUCTO;";
-	int result;
+//	int result;
 	char strAux[2];
 
 	printf("\n---------------------------\n");
@@ -75,23 +87,31 @@ void showProducts() {
 
 	Data datos = executeQuery(sql);
 
-	do {
-		result = sqlite3_step(datos.stmt);
-		if (result == SQLITE_ROW) {
-			printf("%i\t", sqlite3_column_int(datos.stmt, 0));
-			printf("%s\t", (char*) sqlite3_column_text(datos.stmt, 1));
-			printf("%f\t", sqlite3_column_double(datos.stmt, 2));
-			printf("%s\n", (char*) sqlite3_column_text(datos.stmt, 3));
-		}
+	while (sqlite3_step(datos.stmt) == SQLITE_ROW) {
+		printf("%i\t", sqlite3_column_int(datos.stmt, 0));
+		printf("%s\t", (char*) sqlite3_column_text(datos.stmt, 1));
+		printf("%f\t", sqlite3_column_double(datos.stmt, 2));
+		printf("%s\n", (char*) sqlite3_column_text(datos.stmt, 3));
+	}
 
-	} while (result == SQLITE_ROW);
+//	do {
+//		result = sqlite3_step(datos.stmt);
+//		if (result == SQLITE_ROW) {
+//			printf("%i\t", sqlite3_column_int(datos.stmt, 0));
+//			printf("%s\t", (char*) sqlite3_column_text(datos.stmt, 1));
+//			printf("%f\t", sqlite3_column_double(datos.stmt, 2));
+//			printf("%s\n", (char*) sqlite3_column_text(datos.stmt, 3));
+//		}
+//
+//	} while (result == SQLITE_ROW);
 	printf("\n");
 
 	sqlite3_finalize(datos.stmt);
 
 	logFile(INFO, "Lista completa de productos mostrada");
 
-	printf("\n¡Lista completa de productos mostrada! Pulse ENTER para volver al menú principal: ");
+	printf(
+			"\n¡Lista completa de productos mostrada! Pulse ENTER para volver al menú principal: ");
 	fflush(stdout);
 	fgets(strAux, 2, stdin);
 	fflush(stdin);
@@ -102,7 +122,11 @@ void addSupermarket() {
 	supermercado.loadingCode = 1;
 
 	char *sql = "INSERT INTO SUPERMERCADO VALUES (?, ?, ?, ?, ?, ?);";
+	sqlite3_stmt * stmt;
+
 	char str[MAX_LINE];
+	char str1[MAX_LINE];
+	char str2[MAX_LINE];
 	char strAux[2];
 	int cod_s;
 	int tlf_s;
@@ -122,15 +146,15 @@ void addSupermarket() {
 
 	printf("Introduzca el nombre: ");
 	fflush(stdout);
-	fgets(str, MAX_LINE, stdin);
+	fgets(str1, MAX_LINE, stdin);
 	fflush(stdin);
-	supermercado.nom_s = str;
+	supermercado.nom_s = str1;
 
 	printf("\nIntroduzca la dirección: ");
 	fflush(stdout);
-	fgets(str, MAX_LINE, stdin);
+	fgets(str2, MAX_LINE, stdin);
 	fflush(stdin);
-	supermercado.dir_s = str;
+	supermercado.dir_s = str2;
 
 	printf("\nIntroduzca el teléfono: ");
 	fflush(stdout);
@@ -153,9 +177,12 @@ void addSupermarket() {
 	sscanf(str, "%i", &cod_ciu);
 	supermercado.cod_ciu = cod_ciu;
 
-//	executeStatement(sql, db);
+	printf(supermercado.nom_s);
+	printf("\n");
+	printf(supermercado.dir_s);
 
-	logFile(INFO, "Supermercado añadido");
+	addSupermarketDB(sql, &supermercado);
+
 
 	printf("\n¡Supermercado añadido con éxito! Pulse ENTER para continuar: ");
 	fflush(stdout);
@@ -178,7 +205,8 @@ void deleteSupermarket() {
 
 	logFile(INFO, "Supermercado eliminado");
 
-	printf("\n¡Supermercado eliminado correctamente! Pulse ENTER para continuar: ");
+	printf(
+			"\n¡Supermercado eliminado correctamente! Pulse ENTER para continuar: ");
 	fflush(stdout);
 	fgets(strAux, 2, stdin);
 	fflush(stdin);
@@ -187,7 +215,8 @@ void deleteSupermarket() {
 void updateSupermarket() {
 	Supermercado supermercado; // Estructura creada por Asier (#include ...)
 
-	char *sql = "UPDATE SUPERMERCADO SET ? = ?, ? = ?, ? = ?, ? = ?, ? = ?, ? = ? WHERE COD_S = ?;";
+	char *sql =
+			"UPDATE SUPERMERCADO SET ? = ?, ? = ?, ? = ?, ? = ?, ? = ?, ? = ? WHERE COD_S = ?;";
 	char str[MAX_LINE];
 	char strAux[2];
 	int cod_s;
@@ -245,7 +274,8 @@ void updateSupermarket() {
 
 	logFile(INFO, "Supermercado actualizado");
 
-	printf("\n¡Supermercado actualizado correctamente! Pulse ENTER para continuar: ");
+	printf(
+			"\n¡Supermercado actualizado correctamente! Pulse ENTER para continuar: ");
 	fflush(stdout);
 	fgets(strAux, 2, stdin);
 	fflush(stdin);
@@ -325,7 +355,8 @@ void deleteProduct() {
 void updateProduct() {
 	Producto producto; // Estructura creada por Asier (#include ...)
 
-	char *sql = "UPDATE PRODUCTO SET ? = ?, ? = ?, ? = ?, ? = ? WHERE ID_PROD = ?";
+	char *sql =
+			"UPDATE PRODUCTO SET ? = ?, ? = ?, ? = ?, ? = ? WHERE ID_PROD = ?";
 	char str[MAX_LINE];
 	char strAux[2];
 	int id_prod;
@@ -367,7 +398,8 @@ void updateProduct() {
 
 	logFile(INFO, "Producto actualizado");
 
-	printf("\n¡Supermercado actualizado correctamente! Pulse ENTER para continuar: ");
+	printf(
+			"\n¡Supermercado actualizado correctamente! Pulse ENTER para continuar: ");
 	fflush(stdout);
 	fgets(strAux, 2, stdin);
 	fflush(stdin);

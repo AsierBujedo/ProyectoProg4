@@ -57,7 +57,7 @@ int main() {
 			"DIR_S VARCHAR(35),"
 			"TLF_S INT,"
 			"METROS_CUAD_S DOUBLE,"
-			"COD_CIU INT, FOREIGN KEY (COD_CIU) REFERENCES CIUADAD (COD_CIU));";
+			"COD_CIU INT, FOREIGN KEY (COD_CIU) REFERENCES CIUDAD (COD_CIU));";
 
 	char *sql4 =
 			"DROP TABLE IF EXISTS EMPLEADO;"
@@ -101,14 +101,14 @@ int main() {
 	executeStatement(sql5);
 	executeStatement(sql6);
 	executeStatement(sql7);
-	executeStatement(
-			"INSERT INTO EMPLEADO VALUES ('111', 'Iker', 2000, '2022-01-01', 'Bilbao','111')");
-	executeStatement(
-			"INSERT INTO EMPLEADO VALUES ('222', 'Asier', 2000, '2022-01-02', 'Getxo','111')");
-	executeStatement(
-			"INSERT INTO EMPLEADO VALUES ('333', 'Alejandra', 2000, '2022-01-03', 'Derio','111')");
-	executeStatement(
-			"INSERT INTO EMPLEADO VALUES ('444', 'Maria', 2000, '2022-01-04', 'Barakaldo','111')");
+//	executeStatement(
+//			"INSERT INTO EMPLEADO VALUES ('111', 'Iker', 2000, '2022-01-01', 'Bilbao','111')");
+//	executeStatement(
+//			"INSERT INTO EMPLEADO VALUES ('222', 'Asier', 2000, '2022-01-02', 'Getxo','111')");
+//	executeStatement(
+//			"INSERT INTO EMPLEADO VALUES ('333', 'Alejandra', 2000, '2022-01-03', 'Derio','111')");
+//	executeStatement(
+//			"INSERT INTO EMPLEADO VALUES ('444', 'Maria', 2000, '2022-01-04', 'Barakaldo','111')");
 
 	mainMenu();
 
