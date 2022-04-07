@@ -108,25 +108,23 @@ int main() {
 //	executeStatement(
 //			"INSERT INTO EMPLEADO VALUES ('444', 'Maria', 2000, '2022-01-04', 'Barakaldo','111')");
 
-//	mainMenu(false);
-
-	Data data;
-	sqlite3_stmt *stmt;
-	int filas;
-	int columnas;
-
-	data = executeQuery("SELECT * FROM EMPLEADO");
-
-	filas = data.rows;
-	columnas = data.cols;
-	stmt = data.stmt;
-
-	for (int i = 0; i < filas; i++) {
-		sqlite3_step(stmt); //Pasa al siguiente dato
-		for (int j = 0; j < columnas; j++) {
-			printf("%s\n", sqlite3_column_text(stmt, j)); //Imprime un dato de columna
-		}
-	}
+//	Data data;
+//	sqlite3_stmt *stmt;
+//	int filas;
+//	int columnas;
+//
+//	data = executeQuery("SELECT * FROM EMPLEADO");
+//
+//	filas = data.rows;
+//	columnas = data.cols;
+//	stmt = data.stmt;
+//
+//	for (int i = 0; i < filas; i++) {
+//		sqlite3_step(stmt); //Pasa al siguiente dato
+//		for (int j = 0; j < columnas; j++) {
+//			printf("%s\n", sqlite3_column_text(stmt, j)); //Imprime un dato de columna
+//		}
+//	}
 
 	mainMenu(false);
 
