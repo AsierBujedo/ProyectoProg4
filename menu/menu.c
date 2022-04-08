@@ -304,11 +304,11 @@ void mainMenu(bool b) {
 
 	if (b) {
 		printf("\n------------\n");
-		printf("DESUTOMARKET\n");
+		printf("DEUSTOMARKET\n");
 		printf("------------\n\n");
 	} else {
 		printf("------------\n");
-		printf("DESUTOMARKET\n");
+		printf("DEUSTOMARKET\n");
 		printf("------------\n\n");
 	}
 
