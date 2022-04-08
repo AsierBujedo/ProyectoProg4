@@ -203,10 +203,10 @@ void csvMarketLoader(char name[]) {
 		if (token != NULL) {
 			sscanf(token, "%i", &sup.cod_s);
 			token = strtok(NULL, delim);
-			sup.nom_s = malloc(sizeof(char) * MAX);
+			sup.nom_s = malloc(sizeof(char) * strlen(token));
 			sscanf(token, "%s", sup.nom_s);
 			token = strtok(NULL, delim);
-			sup.dir_s = malloc(sizeof(char) * MAX);
+			sup.dir_s = malloc(sizeof(char) * strlen(token));
 			sscanf(token, "%s", sup.dir_s);
 			token = strtok(NULL, delim);
 			sscanf(token, "%i", &sup.tlf_s);
@@ -239,10 +239,10 @@ void csvEmployeeLoader(char name[]) {
 		if (token != NULL) {
 			sscanf(token, "%i", &sup.cod_s);
 			token = strtok(NULL, delim);
-			sup.nom_s = malloc(sizeof(char) * MAX);
+			sup.nom_s = malloc(sizeof(char) * strlen(token));
 			sscanf(token, "%s", sup.nom_s);
 			token = strtok(NULL, delim);
-			sup.dir_s = malloc(sizeof(char) * MAX);
+			sup.dir_s = malloc(sizeof(char) * strlen(token));
 			sscanf(token, "%s", sup.dir_s);
 			token = strtok(NULL, delim);
 			sscanf(token, "%i", &sup.tlf_s);
@@ -251,8 +251,11 @@ void csvEmployeeLoader(char name[]) {
 			token = strtok(NULL, delim);
 			sscanf(token, "%i", &sup.cod_ciu);
 
+
+
 			addSupermarketDB(
 					"INSERT INTO SUPERMERCADO VALUES (?, ?, ?, ?, ?, ?);", sup);
+
 		}
 
 	}
