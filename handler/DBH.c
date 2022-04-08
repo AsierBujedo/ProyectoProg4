@@ -164,7 +164,7 @@ void addEmployeeDB(char sql[], Empleado emp) {
 	sqlite3_bind_text(stmt, 2, emp.nom_emp, strlen(emp.nom_emp), SQLITE_STATIC);
 	sqlite3_bind_int(stmt, 3, emp.salario_emp);
 	sqlite3_bind_text(stmt, 4, emp.fecha_ncto_emp, strlen(emp.fecha_ncto_emp),
-			SQLITE_STATIC);
+	SQLITE_STATIC);
 	sqlite3_bind_text(stmt, 5, emp.dir_emp, strlen(emp.dir_emp), SQLITE_STATIC);
 	sqlite3_bind_int(stmt, 6, emp.dni_jefe);
 

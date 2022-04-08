@@ -34,7 +34,6 @@ void showStatistics() {
 
 void showSupermarkets(bool b) {
 	char *sql = "SELECT * FROM SUPERMERCADO;";
-//	int result;
 	char strAux[2];
 
 	if (b) {
@@ -44,28 +43,15 @@ void showSupermarkets(bool b) {
 	}
 
 	Data datos = executeQuery(sql);
-
+	printf("CODIGO || NOMBRE || DIRECCION || TELEFONO || METROS_CUADRADOS || CODIGO_CIUDAD \n\n");
 	while (sqlite3_step(datos.stmt) == SQLITE_ROW) {
-		printf("%i\t", sqlite3_column_int(datos.stmt, 0));
-		printf("%s\t", (char*) sqlite3_column_text(datos.stmt, 1));
-		printf("%s\t", (char*) sqlite3_column_text(datos.stmt, 2));
-		printf("%i\t", sqlite3_column_int(datos.stmt, 3));
-		printf("%f\n", sqlite3_column_double(datos.stmt, 4));
+		printf("%i || ", sqlite3_column_int(datos.stmt, 0));
+		printf("%s || ", (char*) sqlite3_column_text(datos.stmt, 1));
+		printf("%s || ", (char*) sqlite3_column_text(datos.stmt, 2));
+		printf("%i || ", sqlite3_column_int(datos.stmt, 3));
+		printf("%f || ", sqlite3_column_double(datos.stmt, 4));
+		printf("%i \n", sqlite3_column_int(datos.stmt, 5));
 	}
-
-//	do {
-//		result = sqlite3_step(datos.stmt);
-//		if (result == SQLITE_ROW) {
-//			printf("%i\t", sqlite3_column_int(datos.stmt, 0));
-//			printf("%s\t", (char*) sqlite3_column_text(datos.stmt, 1));
-//			printf("%s\t", (char*) sqlite3_column_text(datos.stmt, 2));
-//			printf("%i\t", sqlite3_column_int(datos.stmt, 3));
-//			printf("%f\n", sqlite3_column_double(datos.stmt, 4));
-//		}
-//
-//	} while (result == SQLITE_ROW);
-
-//	printf("\n");
 
 	sqlite3_finalize(datos.stmt);
 
@@ -92,11 +78,11 @@ void showProducts(bool b) {
 	}
 
 	Data datos = executeQuery(sql);
-
+	printf("CODIGO || NOMBRE || PRECIO || DESCRIPCION \n\n");
 	while (sqlite3_step(datos.stmt) == SQLITE_ROW) {
-		printf("%i\t", sqlite3_column_int(datos.stmt, 0));
-		printf("%s\t", (char*) sqlite3_column_text(datos.stmt, 1));
-		printf("%f\t", sqlite3_column_double(datos.stmt, 2));
+		printf("%i || ", sqlite3_column_int(datos.stmt, 0));
+		printf("%s || ", (char*) sqlite3_column_text(datos.stmt, 1));
+		printf("%f || ", sqlite3_column_double(datos.stmt, 2));
 		printf("%s\n", (char*) sqlite3_column_text(datos.stmt, 3));
 	}
 
