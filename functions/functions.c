@@ -128,7 +128,6 @@ void showProducts(bool b) {
 
 void addSupermarket() {
 	Supermercado s;
-	s.loadingCode = 1;
 
 	char *sql = "INSERT INTO SUPERMERCADO VALUES (?, ?, ?, ?, ?, ?);";
 	char str[MAX_LINE];
@@ -221,7 +220,6 @@ void deleteSupermarket() {
 
 void updateSupermarket() {
 	Supermercado s;
-	s.loadingCode = 1;
 
 	// No dejamos que el COD_S se actualice
 	char *sql =

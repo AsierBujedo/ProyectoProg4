@@ -187,55 +187,75 @@ void updateProductDB(char sql[], Producto p) {
 	}
 }
 
-void csvLoader(char name[], int code) {
+void csvMarketLoader(char name[]) {
 
 	FILE *csv;
 	char row[MAX];
+	const char delim[2] = ",";
 	char *token;
 
 	csv = fopen(name, "r");
 
-	while (fgets(row, MAX, csv)) {
-		printf("Row: %s\n", row);
+	while (fgets(row, MAX, csv) != NULL) {
+		Supermercado sup;
+		token = strtok(row, delim);
 
-		token = strtok(row, ",");
+		if (token != NULL) {
+			sscanf(token, "%i", &sup.cod_s);
+			token = strtok(NULL, delim);
+			sup.nom_s = malloc(sizeof(char) * MAX);
+			sscanf(token, "%s", sup.nom_s);
+			token = strtok(NULL, delim);
+			sup.dir_s = malloc(sizeof(char) * MAX);
+			sscanf(token, "%s", sup.dir_s);
+			token = strtok(NULL, delim);
+			sscanf(token, "%i", &sup.tlf_s);
+			token = strtok(NULL, delim);
+			sscanf(token, "%lf", &sup.metros_cuad_s);
+			token = strtok(NULL, delim);
+			sscanf(token, "%i", &sup.cod_ciu);
 
-		int atrib;
-
-		if (code == 1) {
-			int i = 0;
-			while (token != NULL) {
-				if (i == 0) {
-					Supermercado sup;
-					sup.loadingCode = 1;
-					sup.cod_s = token;
-					i++;
-				} else if (i == 1) {
-
-				}
-				printf("Token: %s\n", token);
-				token = strtok(NULL, ",");
-			}
-
-		} else if (code == 2) {
-			atrib = 6;
-
-		} else if (code == 3) {
-			atrib = 3;
-
-		} else if (code == 4) {
-			atrib = 2;
-
-		} else if (code == 5) {
-			atrib = 4;
-
-		} else if (code == 6) {
-			atrib = 2;
-
-		} else if (code == 7) {
-			atrib = 2;
-
+			addSupermarketDB(
+					"INSERT INTO SUPERMERCADO VALUES (?, ?, ?, ?, ?, ?);", sup);
 		}
 
 	}
+	fclose(csv);
+}
+
+void csvEmployeeLoader(char name[]) {
+
+	FILE *csv;
+	char row[MAX];
+	const char delim[2] = ",";
+	char *token;
+
+	csv = fopen(name, "r");
+
+	while (fgets(row, MAX, csv) != NULL) {
+		Supermercado sup;
+		token = strtok(row, delim);
+
+		if (token != NULL) {
+			sscanf(token, "%i", &sup.cod_s);
+			token = strtok(NULL, delim);
+			sup.nom_s = malloc(sizeof(char) * MAX);
+			sscanf(token, "%s", sup.nom_s);
+			token = strtok(NULL, delim);
+			sup.dir_s = malloc(sizeof(char) * MAX);
+			sscanf(token, "%s", sup.dir_s);
+			token = strtok(NULL, delim);
+			sscanf(token, "%i", &sup.tlf_s);
+			token = strtok(NULL, delim);
+			sscanf(token, "%lf", &sup.metros_cuad_s);
+			token = strtok(NULL, delim);
+			sscanf(token, "%i", &sup.cod_ciu);
+
+			addSupermarketDB(
+					"INSERT INTO SUPERMERCADO VALUES (?, ?, ?, ?, ?, ?);", sup);
+		}
+
+	}
+	fclose(csv);
+
 }

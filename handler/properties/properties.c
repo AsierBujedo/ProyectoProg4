@@ -47,7 +47,7 @@ void allocate(Properties *prop, char name[]) {
 
 	prop->propName = nombres;
 	prop->propValue = valores;
-	logFile(INFO, "Propiedades cragadas con éxito");
+	logFile(INFO, "Propiedades cargadas con éxito");
 	fclose(f);
 
 }

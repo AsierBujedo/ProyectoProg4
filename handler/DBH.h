@@ -10,7 +10,6 @@ typedef struct {
 } Data;
 
 typedef struct {
-	int loadingCode; //5 Cod -> 1
 	int cod_s;
 	char* nom_s;
 	char* dir_s;
@@ -20,7 +19,6 @@ typedef struct {
 } Supermercado;
 
 typedef struct {
-	int loadingCode; //6 Cod -> 2
 	char* dni_emp;
 	char* nom_emp;
 	double salario_emp;
@@ -30,20 +28,17 @@ typedef struct {
 } Empleado;
 
 typedef struct {
-	int loadingCode; //3 Cod -> 3
 	int cod_ciu;
 	char* nom_ciu;
 	int cod_prov;
 } Ciudad;
 
 typedef struct {
-	int loadingCode; //2 Cod -> 4
 	int cod_prov;
 	char* nom_prov;
 } Provincia;
 
 typedef struct {
-	int loadingCode; //4 Cod -> 5
 	int id_prod;
 	char* nom_prod;
 	double precio_prod;
@@ -51,13 +46,11 @@ typedef struct {
 } Producto;
 
 typedef struct {
-	int loadingCode; //2 Cod -> 6
 	int cod_s;
 	char* id_prod;
 } Vende;
 
 typedef struct {
-	int loadingCode; //2 Cod -> 7
 	int cod_s;
 	char* dni_emp;
 } Trabaja;
@@ -73,6 +66,6 @@ void updateSupermarketDB(char sql[], Supermercado s);
 void addProductDB(char sql[], Producto p);
 void deleteProductDB(char sql[], int id_prod);
 void updateProductDB(char sql[], Producto p);
-void csvLoader(char name[], int code);
+void csvMarketLoader(char name[]);
 
 #endif /* DBH_H_ */

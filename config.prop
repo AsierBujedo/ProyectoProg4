@@ -6,3 +6,11 @@
 11111
 -DEBUG
 1
+-SUPERMARKET_DIR
+dataSource/supermercado.csv
+-EMPLOYEE_DIR
+dataSource/empleado.csv
+-DATABASE_DIR
+DeustoMarket.db
+-PRODUCT_DIR
+dataSource/producto.csv
