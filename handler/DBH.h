@@ -67,5 +67,8 @@ void addProductDB(char sql[], Producto p);
 void deleteProductDB(char sql[], int id_prod);
 void updateProductDB(char sql[], Producto p);
 void csvMarketLoader(char name[]);
+void csvEmployeeLoader(char name[]);
+void csvProductLoader(char name[]);
+void addEmployeeDB(char sql[], Empleado emp);
 
 #endif /* DBH_H_ */

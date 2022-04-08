@@ -154,6 +154,27 @@ void addProductDB(char sql[], Producto p) {
 	}
 }
 
+void addEmployeeDB(char sql[], Empleado emp) {
+	sqlite3_stmt *stmt;
+
+	sqlite3_prepare_v2(db, sql, strlen(sql) + 1, &stmt, NULL);
+
+//	sql = "INSERT INTO EMPLEADO VALUES (?, ?, ?, ?, ?, ?)";
+	sqlite3_bind_text(stmt, 1, emp.dni_emp, strlen(emp.dni_emp), SQLITE_STATIC);
+	sqlite3_bind_text(stmt, 2, emp.nom_emp, strlen(emp.nom_emp), SQLITE_STATIC);
+	sqlite3_bind_int(stmt, 3, emp.salario_emp);
+	sqlite3_bind_text(stmt, 4, emp.fecha_ncto_emp, strlen(emp.fecha_ncto_emp),
+			SQLITE_STATIC);
+	sqlite3_bind_text(stmt, 5, emp.dir_emp, strlen(emp.dir_emp), SQLITE_STATIC);
+	sqlite3_bind_int(stmt, 6, emp.dni_jefe);
+
+	if ((sqlite3_step(stmt)) != SQLITE_DONE) {
+		logFile(ERROR, "Error al añadir empleado");
+	} else {
+		logFile(INFO, "empleado añadido");
+	}
+}
+
 void deleteProductDB(char sql[], int id_prod) {
 	sqlite3_stmt *stmt;
 
@@ -233,30 +254,61 @@ void csvEmployeeLoader(char name[]) {
 	csv = fopen(name, "r");
 
 	while (fgets(row, MAX, csv) != NULL) {
-		Supermercado sup;
+		Empleado emp;
 		token = strtok(row, delim);
 
+		emp.dni_emp = malloc(sizeof(char) * strlen(token));
+		sscanf(token, "%s", emp.dni_emp);
+		token = strtok(NULL, delim);
+		emp.nom_emp = malloc(sizeof(char) * strlen(token));
+		sscanf(token, "%s", emp.nom_emp);
+		token = strtok(NULL, delim);
+		sscanf(token, "%lf", &emp.salario_emp);
+		token = strtok(NULL, delim);
+		emp.fecha_ncto_emp = malloc(sizeof(char) * strlen(token));
+		sscanf(token, "%s", emp.fecha_ncto_emp);
+		token = strtok(NULL, delim);
+		emp.dir_emp = malloc(sizeof(char) * strlen(token));
+		sscanf(token, "%s", emp.dir_emp);
+		token = strtok(NULL, delim);
 		if (token != NULL) {
-			sscanf(token, "%i", &sup.cod_s);
-			token = strtok(NULL, delim);
-			sup.nom_s = malloc(sizeof(char) * strlen(token));
-			sscanf(token, "%s", sup.nom_s);
-			token = strtok(NULL, delim);
-			sup.dir_s = malloc(sizeof(char) * strlen(token));
-			sscanf(token, "%s", sup.dir_s);
-			token = strtok(NULL, delim);
-			sscanf(token, "%i", &sup.tlf_s);
-			token = strtok(NULL, delim);
-			sscanf(token, "%lf", &sup.metros_cuad_s);
-			token = strtok(NULL, delim);
-			sscanf(token, "%i", &sup.cod_ciu);
-
-
-
-			addSupermarketDB(
-					"INSERT INTO SUPERMERCADO VALUES (?, ?, ?, ?, ?, ?);", sup);
-
+			emp.dni_jefe = malloc(sizeof(char) * strlen(token));
+			sscanf(token, "%s", emp.dni_jefe);
+		} else {
+			emp.dni_jefe = NULL;
 		}
+
+		addEmployeeDB("INSERT INTO EMPLEADO VALUES (?, ?, ?, ?, ?, ?)", emp);
+
+	}
+	fclose(csv);
+
+}
+
+void csvProductLoader(char name[]) {
+
+	FILE *csv;
+	char row[MAX];
+	const char delim[2] = ",";
+	char *token;
+
+	csv = fopen(name, "r");
+
+	while (fgets(row, MAX, csv) != NULL) {
+		Producto prod;
+		token = strtok(row, delim);
+
+		sscanf(token, "%i", &prod.id_prod);
+		token = strtok(NULL, delim);
+		prod.nom_prod = malloc(sizeof(char) * strlen(token));
+		sscanf(token, "%s", prod.nom_prod);
+		token = strtok(NULL, delim);
+		sscanf(token, "%lf", &prod.precio_prod);
+		token = strtok(NULL, delim);
+		prod.desc_prod = malloc(sizeof(char) * strlen(token));
+		sscanf(token, "%s", prod.desc_prod);
+
+		addProductDB("INSERT INTO PRODUCTO VALUES (?, ?, ?, ?)", prod);
 
 	}
 	fclose(csv);

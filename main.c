@@ -107,6 +107,8 @@ int main() {
 	executeStatement(sql6);
 	executeStatement(sql7);
 	csvMarketLoader(prop.propValue[4]);
+	csvEmployeeLoader(prop.propValue[5]);
+	csvProductLoader(prop.propValue[7]);
 //	executeStatement(
 //			"INSERT INTO EMPLEADO VALUES ('111', 'Iker', 2000, '2022-01-01', 'Bilbao','111')");
 //	executeStatement(
