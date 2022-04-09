@@ -1,3 +1,10 @@
+/*
+ * DBH.h
+ *
+ *  Created on: 18 mar. 2022
+ *      Author: asier
+ */
+
 #include "lib\sqlite3.h"
 
 #ifndef DBH_H_
@@ -47,7 +54,7 @@ typedef struct {
 
 typedef struct {
 	int cod_s;
-	char* id_prod;
+	int id_prod;
 } Vende;
 
 typedef struct {
@@ -66,9 +73,13 @@ void updateSupermarketDB(char sql[], Supermercado s);
 void addProductDB(char sql[], Producto p);
 void deleteProductDB(char sql[], int id_prod);
 void updateProductDB(char sql[], Producto p);
-void csvMarketLoader(char name[]);
+void csvCityLoader(char name[]);
 void csvEmployeeLoader(char name[]);
 void csvProductLoader(char name[]);
+void csvProvinceLoader(char name[]);
+void csvSupermarketLoader(char name[]);
+void csvWorksLoader(char name[]);
+void csvSellsLoader(char name[]);
 void addEmployeeDB(char sql[], Empleado emp);
 
 #endif /* DBH_H_ */

@@ -1,6 +1,6 @@
-200, Iker, 2000, 2022-01-01, Licenciado_Poza_3, NULL
-201, Asier, 2000, 2021-02-02, Calle Autonomia 14, 200
-202, Maria, 2000, 2002-03-03, Txomin_Garat 16, 201
-203, Alejandra, 2040, 2000-04-04, Ercilla_25, 202
-204, Natalia, 1500, 2012-05-05, Puente_de_Deusto 5, 200
-205, Ane, 1200, 2003-06-06, Telesforo_Aranzagui_20, 203
+85261512Y,Iker_López,2000,2000-07-21,Licenciado_Poza_3,NULL
+40660704Q,Asier_Bujedo,2500,2002-06-21,Calle_Autonomia_14,85261512Y
+26577408B,Maria_Pérez,2400,2002-08-17,Txomin_Garat_16,40660704Q
+30959384G,Alejandra_Gillet,1900,2002-04-04,Ercilla_25,40660704Q
+33700499W,Natalia_Gómez,2600,1998-05-26,Puente_de_Deusto_5,85261512Y
+10129311L,Ane_Gutiérrez,1800,2003-06-24,Telesforo_Aranzagui_20,30959384G

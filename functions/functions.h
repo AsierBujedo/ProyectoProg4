@@ -1,5 +1,5 @@
 /*
- * methods.h
+ * functions.h
  *
  *  Created on: 2 abr. 2022
  *      Author: Iker López
@@ -11,7 +11,9 @@
 
 void showStatistics();
 void showSupermarkets(bool b);
+void showSupermarketPK();
 void showProducts(bool b);
+void showProductPK();
 void addSupermarket();
 void deleteSupermarket();
 void updateSupermarket();

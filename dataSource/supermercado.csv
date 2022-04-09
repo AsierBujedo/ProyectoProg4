@@ -1,7 +1,7 @@
-001,BM, Plaza_de_Abastos, 653920183, 300.10,122
-002,Supermercado_MAS, Calle_Ruiz_de_Alda_3,902648891, 600.5,125
-003,Gadis, Rua_Quiroga_Ballasteros, 876488213,1000.3,124
-004,Supermercado_SUMA, Calle_Procurador_Ricardo_Dominguez_1, 234987012, 2100.0,126
-005, Ahorramas, Calle_Toledo_84, 900113213, 3100.2, 121
-006, Mercadona, Avenida_Nuestra_Señora_de_la_Victoria, 974352133, 4100.6, 123
-007, Supermercado La_Plaza_de_Dia, Avenida_Monfrague, 912170453, 2000.0, 128
+100,BM,Plaza_de_Abastos,653920183,550.1,20
+101,Supermercado_MAS,Calle_Ruiz_de_Alda_3,902648891,600.5,17
+102,Gadis,Rua_Quiroga_Ballasteros,876488213,1010.3,18
+103,Supermercado_SUMA,Calle_Procurador_Ricardo_Dominguez_1,234987012,2100.0,16
+104,Ahorramas,Calle_Toledo_84,900113213,2100.5,12
+105,Mercadona,Avenida_Nuestra_Señora_de_la_Victoria,974352133,1100.0,19
+106,Supermercado_La_Plaza_de_Dia,Avenida_Monfrague,912170453,2500.0,14

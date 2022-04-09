@@ -1,5 +1,5 @@
 /*
- * methods.c
+ * functions.c
  *
  *  Created on: 2 abr. 2022
  *      Author: Iker López
@@ -7,6 +7,7 @@
 
 #include "functions.h"
 #include "../handler/DBH.h"
+#include "../menu/menu.h"
 #include "../handler/logger/logger.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -16,12 +17,23 @@
 
 void showStatistics() {
 	char strAux[2];
+	Data datos1;
+	Data datos2;
 
 	printf("\n------------\n");
 	printf("ESTADÍSTICAS\n");
 	printf("------------\n\n");
 
-	// FALTA CODIFICAR
+	datos1 = executeQuery("SELECT AVG(PRECIO_PROD) FROM PRODUCTO");
+	datos2 = executeQuery("SELECT AVG(METROS_CUAD_S) FROM SUPERMERCADO");
+
+	sqlite3_step(datos1.stmt);
+	sqlite3_step(datos2.stmt);
+
+	printf("Media de los precios de los productos: %.2lf€\n",
+			sqlite3_column_double(datos1.stmt, 0));
+	printf("Media de los metros cuadrados de los supermercados: %.2lfm\n",
+			sqlite3_column_double(datos2.stmt, 0));
 
 	logFile(INFO, "Estadísticas mostradas");
 
@@ -43,14 +55,15 @@ void showSupermarkets(bool b) {
 	}
 
 	Data datos = executeQuery(sql);
-	printf("CODIGO || NOMBRE || DIRECCION || TELEFONO || METROS_CUADRADOS || CODIGO_CIUDAD \n\n");
+	printf(
+			"CODIGO || NOMBRE || DIRECCION || TELEFONO || METROS_CUADRADOS || CODIGO_CIUDAD\n\n");
 	while (sqlite3_step(datos.stmt) == SQLITE_ROW) {
 		printf("%i || ", sqlite3_column_int(datos.stmt, 0));
 		printf("%s || ", (char*) sqlite3_column_text(datos.stmt, 1));
 		printf("%s || ", (char*) sqlite3_column_text(datos.stmt, 2));
 		printf("%i || ", sqlite3_column_int(datos.stmt, 3));
-		printf("%f || ", sqlite3_column_double(datos.stmt, 4));
-		printf("%i \n", sqlite3_column_int(datos.stmt, 5));
+		printf("%.2lf || ", sqlite3_column_double(datos.stmt, 4));
+		printf("%i\n", sqlite3_column_int(datos.stmt, 5));
 	}
 
 	sqlite3_finalize(datos.stmt);
@@ -66,9 +79,22 @@ void showSupermarkets(bool b) {
 	}
 }
 
+void showSupermarketPK() {
+	char *sql = "SELECT COD_S FROM SUPERMERCADO;";
+
+	Data datos = executeQuery(sql);
+	printf("CODIGOS DE SUPERMERCADO ACTUALES\n");
+	while (sqlite3_step(datos.stmt) == SQLITE_ROW) {
+		printf("%i\n", sqlite3_column_int(datos.stmt, 0));
+	}
+
+	sqlite3_finalize(datos.stmt);
+
+	logFile(INFO, "Códigos de supermercados mostrados");
+}
+
 void showProducts(bool b) {
 	char *sql = "SELECT * FROM PRODUCTO;";
-//	int result;
 	char strAux[2];
 
 	if (b) {
@@ -78,26 +104,13 @@ void showProducts(bool b) {
 	}
 
 	Data datos = executeQuery(sql);
-	printf("CODIGO || NOMBRE || PRECIO || DESCRIPCION \n\n");
+	printf("CODIGO || NOMBRE || PRECIO || DESCRIPCION\n\n");
 	while (sqlite3_step(datos.stmt) == SQLITE_ROW) {
 		printf("%i || ", sqlite3_column_int(datos.stmt, 0));
 		printf("%s || ", (char*) sqlite3_column_text(datos.stmt, 1));
-		printf("%f || ", sqlite3_column_double(datos.stmt, 2));
+		printf("%.2lf || ", sqlite3_column_double(datos.stmt, 2));
 		printf("%s\n", (char*) sqlite3_column_text(datos.stmt, 3));
 	}
-
-//	do {
-//		result = sqlite3_step(datos.stmt);
-//		if (result == SQLITE_ROW) {
-//			printf("%i\t", sqlite3_column_int(datos.stmt, 0));
-//			printf("%s\t", (char*) sqlite3_column_text(datos.stmt, 1));
-//			printf("%f\t", sqlite3_column_double(datos.stmt, 2));
-//			printf("%s\n", (char*) sqlite3_column_text(datos.stmt, 3));
-//		}
-//
-//	} while (result == SQLITE_ROW);
-
-//	printf("\n");
 
 	sqlite3_finalize(datos.stmt);
 
@@ -112,6 +125,20 @@ void showProducts(bool b) {
 	}
 }
 
+void showProductPK() {
+	char *sql = "SELECT ID_PROD FROM PRODUCTO;";
+
+	Data datos = executeQuery(sql);
+	printf("CODIGOS DE PRODUCTO ACTUALES\n");
+	while (sqlite3_step(datos.stmt) == SQLITE_ROW) {
+		printf("%i\n", sqlite3_column_int(datos.stmt, 0));
+	}
+
+	sqlite3_finalize(datos.stmt);
+
+	logFile(INFO, "Códigos de productos mostrados");
+}
+
 void addSupermarket() {
 	Supermercado s;
 
@@ -122,30 +149,34 @@ void addSupermarket() {
 	char nom_s[MAX_LINE];
 	char dir_s[MAX_LINE];
 	int tlf_s;
-	float metros_cuad_s;
+	double metros_cuad_s;
 	int cod_ciu;
 
 	printf("\n-------------------\n");
 	printf("AÑADIR SUPERMERCADO\n");
 	printf("-------------------\n\n");
 
-	printf("Introduzca el códgio: ");
+	showSupermarketPK(); // Mostramos los códigos de los supermercados
+
+	printf("\nIntroduzca el código: ");
 	fflush(stdout);
 	fgets(str, MAX_LINE, stdin);
 	fflush(stdin);
 	sscanf(str, "%i", &cod_s);
 	s.cod_s = cod_s;
 
-	printf("\nIntroduzca el nombre: ");
+	printf("\nIntroduzca el nombre (separe la palabras con '_'): ");
 	fflush(stdout);
 	fgets(nom_s, MAX_LINE, stdin);
 	fflush(stdin);
+	sscanf(nom_s, "%s", nom_s);
 	s.nom_s = nom_s;
 
-	printf("\nIntroduzca la dirección: ");
+	printf("\nIntroduzca la dirección (separe la palabras con '_'): ");
 	fflush(stdout);
 	fgets(dir_s, MAX_LINE, stdin);
 	fflush(stdin);
+	sscanf(dir_s, "%s", dir_s);
 	s.dir_s = dir_s;
 
 	printf("\nIntroduzca el teléfono: ");
@@ -159,7 +190,7 @@ void addSupermarket() {
 	fflush(stdout);
 	fgets(str, MAX_LINE, stdin);
 	fflush(stdin);
-	sscanf(str, "%f", &metros_cuad_s);
+	sscanf(str, "%lf", &metros_cuad_s);
 	s.metros_cuad_s = metros_cuad_s;
 
 	printf("\nIntroduzca el código de la ciudad: ");
@@ -182,6 +213,7 @@ void deleteSupermarket() {
 	char str[MAX_LINE];
 	char strAux[2];
 	int cod_s;
+	char opt;
 
 	showSupermarkets(false); // Mostramos la lista completa de supermercados
 
@@ -195,13 +227,24 @@ void deleteSupermarket() {
 	fflush(stdin);
 	sscanf(str, "%i", &cod_s);
 
-	deleteSupermarketDB(sql, cod_s);
-
-	printf(
-			"\n¡Supermercado eliminado correctamente! Pulse ENTER para continuar: ");
+	printf("\n¿Está seguro? Si continua se eliminará el supermercado [s/n]: ");
 	fflush(stdout);
-	fgets(strAux, 2, stdin);
+	fgets(str, MAX_LINE, stdin);
 	fflush(stdin);
+	sscanf(str, "%c", &opt);
+
+	// Asumimos que el usuario solo introducirá una 's' o una 'n'
+	if (opt == 's') {
+		deleteSupermarketDB(sql, cod_s);
+
+		printf(
+				"\n¡Supermercado eliminado correctamente! Pulse ENTER para continuar: ");
+		fflush(stdout);
+		fgets(strAux, 2, stdin);
+		fflush(stdin);
+	} else if (opt == 'n') {
+		manageSuperMenu();
+	}
 }
 
 void updateSupermarket() {
@@ -216,7 +259,7 @@ void updateSupermarket() {
 	char nom_s[MAX_LINE];
 	char dir_s[MAX_LINE];
 	int tlf_s;
-	float metros_cuad_s;
+	double metros_cuad_s;
 	int cod_ciu;
 
 	showSupermarkets(false); // Mostramos la lista completa de supermercados
@@ -232,16 +275,20 @@ void updateSupermarket() {
 	sscanf(str, "%i", &cod_s);
 	s.cod_s = cod_s;
 
-	printf("\nIntroduzca el (posible nuevo) nombre: ");
+	printf(
+			"\nIntroduzca el (posible nuevo) nombre (separe la palabras con '_'): ");
 	fflush(stdout);
 	fgets(nom_s, MAX_LINE, stdin);
 	fflush(stdin);
+	sscanf(nom_s, "%s", nom_s);
 	s.nom_s = nom_s;
 
-	printf("\nIntroduzca la (posible nueva) dirección: ");
+	printf(
+			"\nIntroduzca la (posible nueva) dirección (separe la palabras con '_'): ");
 	fflush(stdout);
 	fgets(dir_s, MAX_LINE, stdin);
 	fflush(stdin);
+	sscanf(dir_s, "%s", dir_s);
 	s.dir_s = dir_s;
 
 	printf("\nIntroduzca el (posible nuevo) teléfono: ");
@@ -251,11 +298,11 @@ void updateSupermarket() {
 	sscanf(str, "%i", &tlf_s);
 	s.tlf_s = tlf_s;
 
-	printf("\nIntroduzca los (posible nuevos) metros cuadrados: ");
+	printf("\nIntroduzca los (posibles nuevos) metros cuadrados: ");
 	fflush(stdout);
 	fgets(str, MAX_LINE, stdin);
 	fflush(stdin);
-	sscanf(str, "%f", &metros_cuad_s);
+	sscanf(str, "%lf", &metros_cuad_s);
 	s.metros_cuad_s = metros_cuad_s;
 
 	printf("\nIntroduzca el (posible nuevo) código de la ciudad: ");
@@ -282,37 +329,41 @@ void addProduct() {
 	char strAux[2];
 	int id_prod;
 	char nom_prod[MAX_LINE];
-	float precio_prod;
+	double precio_prod;
 	char desc_prod[MAX_LINE];
 
 	printf("\n---------------\n");
 	printf("AÑADIR PRODUCTO\n");
 	printf("---------------\n\n");
 
-	printf("Introduzca el códgio: ");
+	showProductPK(); // Mostramos los códigos de los productos
+
+	printf("\nIntroduzca el código: ");
 	fflush(stdout);
 	fgets(str, MAX_LINE, stdin);
 	fflush(stdin);
 	sscanf(str, "%i", &id_prod);
 	p.id_prod = id_prod;
 
-	printf("\nIntroduzca el nombre: ");
+	printf("\nIntroduzca el nombre (separe la palabras con '_'): ");
 	fflush(stdout);
 	fgets(nom_prod, MAX_LINE, stdin);
 	fflush(stdin);
+	sscanf(nom_prod, "%s", nom_prod);
 	p.nom_prod = nom_prod;
 
 	printf("\nIntroduzca el precio: ");
 	fflush(stdout);
 	fgets(str, MAX_LINE, stdin);
 	fflush(stdin);
-	sscanf(str, "%f", &precio_prod);
+	sscanf(str, "%lf", &precio_prod);
 	p.precio_prod = precio_prod;
 
-	printf("\nIntroduzca la descripción: ");
+	printf("\nIntroduzca la descripción (separe la palabras con '_'): ");
 	fflush(stdout);
 	fgets(desc_prod, MAX_LINE, stdin);
 	fflush(stdin);
+	sscanf(desc_prod, "%s", desc_prod);
 	p.desc_prod = desc_prod;
 
 	addProductDB(sql, p);
@@ -328,6 +379,7 @@ void deleteProduct() {
 	char str[MAX_LINE];
 	char strAux[2];
 	int id_prod;
+	char opt;
 
 	showProducts(false); // Mostramos la lista completa de supermercados
 
@@ -341,12 +393,24 @@ void deleteProduct() {
 	fflush(stdin);
 	sscanf(str, "%i", &id_prod);
 
-	deleteProductDB(sql, id_prod);
-
-	printf("\n¡Producto eliminado correctamente! Pulse ENTER para continuar: ");
+	printf("\n¿Está seguro? Si continua se eliminará el producto [s/n]: ");
 	fflush(stdout);
-	fgets(strAux, 2, stdin);
+	fgets(str, MAX_LINE, stdin);
 	fflush(stdin);
+	sscanf(str, "%c", &opt);
+
+	// Asumimos que el usuario solo introducirá una 's' o una 'n'
+	if (opt == 's') {
+		deleteProductDB(sql, id_prod);
+
+		printf(
+				"\n¡Producto eliminado correctamente! Pulse ENTER para continuar: ");
+		fflush(stdout);
+		fgets(strAux, 2, stdin);
+		fflush(stdin);
+	} else if (opt == 'n') {
+		manageProdMenu();
+	}
 }
 
 void updateProduct() {
@@ -358,7 +422,7 @@ void updateProduct() {
 	char strAux[2];
 	int id_prod;
 	char nom_prod[MAX_LINE];
-	float precio_prod;
+	double precio_prod;
 	char desc_prod[MAX_LINE];
 
 	showProducts(false); // Mostramos la lista completa de supermercados
@@ -374,23 +438,27 @@ void updateProduct() {
 	sscanf(str, "%i", &id_prod);
 	p.id_prod = id_prod;
 
-	printf("\nIntroduzca el (posible nuevo) nombre: ");
+	printf(
+			"\nIntroduzca el (posible nuevo) nombre (separe la palabras con '_'): ");
 	fflush(stdout);
 	fgets(nom_prod, MAX_LINE, stdin);
 	fflush(stdin);
+	sscanf(nom_prod, "%s", nom_prod);
 	p.nom_prod = nom_prod;
 
 	printf("\nIntroduzca el (posible nuevo) precio: ");
 	fflush(stdout);
 	fgets(str, MAX_LINE, stdin);
 	fflush(stdin);
-	sscanf(str, "%f", &precio_prod);
+	sscanf(str, "%lf", &precio_prod);
 	p.precio_prod = precio_prod;
 
-	printf("\nIntroduzca la (posible nueva) descripción: ");
+	printf(
+			"\nIntroduzca la (posible nueva) descripción (separe la palabras con '_'): ");
 	fflush(stdout);
 	fgets(desc_prod, MAX_LINE, stdin);
 	fflush(stdin);
+	sscanf(desc_prod, "%s", desc_prod);
 	p.desc_prod = desc_prod;
 
 	updateProductDB(sql, p);

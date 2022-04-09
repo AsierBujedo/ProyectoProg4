@@ -1,3 +1,10 @@
+/*
+ * logger.c
+ *
+ *  Created on: 19 mar. 2022
+ *      Author: asier
+ */
+
 #include"logger.h"
 #include "../properties/properties.h"
 #include<stdio.h>
