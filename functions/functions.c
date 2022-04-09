@@ -215,13 +215,13 @@ void deleteSupermarket() {
 	int cod_s;
 	char opt;
 
-	showSupermarkets(false); // Mostramos la lista completa de supermercados
-
 	printf("\n---------------------\n");
 	printf("ELIMINAR SUPERMERCADO\n");
-	printf("-------------------\n\n");
+	printf("---------------------\n\n");
 
-	printf("Introduzca el código del supermercado a eliminar: ");
+	showSupermarkets(false); // Mostramos la lista completa de supermercados
+
+	printf("\nIntroduzca el código del supermercado a eliminar: ");
 	fflush(stdout);
 	fgets(str, MAX_LINE, stdin);
 	fflush(stdin);
@@ -262,13 +262,13 @@ void updateSupermarket() {
 	double metros_cuad_s;
 	int cod_ciu;
 
+	printf("\n-----------------------\n");
+	printf("ACTUALIZAR SUPERMERCADO\n");
+	printf("-----------------------\n\n");
+
 	showSupermarkets(false); // Mostramos la lista completa de supermercados
 
-	printf("\n----------------------\n");
-	printf("ACTUALIZAR SUPERMERCADO\n");
-	printf("----------------------\n\n");
-
-	printf("Introduzca el código del supermercado a actualizar: ");
+	printf("\nIntroduzca el código del supermercado a actualizar: ");
 	fflush(stdout);
 	fgets(str, MAX_LINE, stdin);
 	fflush(stdin);
@@ -381,13 +381,13 @@ void deleteProduct() {
 	int id_prod;
 	char opt;
 
+	printf("\n-----------------\n");
+	printf("ELIMINAR PRODUCTO\n");
+	printf("-----------------\n\n");
+
 	showProducts(false); // Mostramos la lista completa de supermercados
 
-	printf("\n-------------------\n");
-	printf("ELIMINAR PRODUCTO\n");
-	printf("-------------------\n\n");
-
-	printf("Introduzca el código del producto a eliminar: ");
+	printf("\nIntroduzca el código del producto a eliminar: ");
 	fflush(stdout);
 	fgets(str, MAX_LINE, stdin);
 	fflush(stdin);
@@ -425,13 +425,13 @@ void updateProduct() {
 	double precio_prod;
 	char desc_prod[MAX_LINE];
 
+	printf("\n-------------------\n");
+	printf("ACTUALIZAR PRODUCTO\n");
+	printf("-------------------\n\n");
+
 	showProducts(false); // Mostramos la lista completa de supermercados
 
-	printf("\n------------------\n");
-	printf("ACTUALIZAR PRODUCTO\n");
-	printf("------------------\n\n");
-
-	printf("Introduzca el código del producto a actualizar: ");
+	printf("\nIntroduzca el código del producto a actualizar: ");
 	fflush(stdout);
 	fgets(str, MAX_LINE, stdin);
 	fflush(stdin);

@@ -150,9 +150,9 @@ void queryBDMenu() {
 	int opt;
 	char str[10];
 
-	printf("\n------------------\n");
+	printf("\n-----------------\n");
 	printf("CONSULTAS A LA BD\n");
-	printf("------------------\n\n");
+	printf("-----------------\n\n");
 	printf("1. Visualizar supermercados\n");
 	printf("2. Visualizar productos\n");
 	printf("3. Volver a menú principal\n");
