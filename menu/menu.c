@@ -314,7 +314,8 @@ void mainMenu(bool b) {
 
 	printf("1. Entrar como usuario\n");
 	printf("2. Entrar como administrador\n");
-	printf("3. Salir\n");
+	printf("3. Entrar en modo servidor\n");
+	printf("4. Salir\n");
 	printf("Introduzca una opción: ");
 	fflush(stdout);
 	fgets(str, 2, stdin);
@@ -333,6 +334,10 @@ void mainMenu(bool b) {
 		break;
 
 	case 3:
+		logFile(INFO, "Lanzando servidor... (>>ServerMode)");
+
+
+	case 4:
 		logFile(END, "Opción 3 de mainMenu seleccionada (ejecución finalizada)");
 		exit(0);
 	}
