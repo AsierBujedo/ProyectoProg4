@@ -38,7 +38,7 @@ void logFile(LEVEL l, char desc[]) {
 		strcat(strcpy(buffer, "\n[WARN]   "), desc);
 		fprintf(f, buffer);
 		fprintf(stderr, buffer);
-	} else if (l == ERROR) {
+	} else if (l == ERRORL) {
 		char buffer[100];
 		strcat(strcpy(buffer, "\n[ERROR]   "), desc);
 		fprintf(f, buffer);

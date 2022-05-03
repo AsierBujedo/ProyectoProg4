@@ -6,6 +6,7 @@
  */
 
 #include "menu.h"
+#include "../handler/server/server.h"
 #include "../functions/functions.h"
 #include "../handler/logger/logger.h"
 #include "../handler/properties/properties.h"
@@ -335,7 +336,7 @@ void mainMenu(bool b) {
 
 	case 3:
 		logFile(INFO, "Lanzando servidor... (>>ServerMode)");
-
+		initServer();
 
 	case 4:
 		logFile(END, "Opción 3 de mainMenu seleccionada (ejecución finalizada)");

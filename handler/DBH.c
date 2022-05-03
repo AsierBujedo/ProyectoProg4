@@ -20,7 +20,7 @@ void initDB(char name[]) {
 
 	res = sqlite3_open(name, &db);
 	if (res) {
-		logFile(ERROR, sqlite3_errmsg(db));
+		logFile(ERRORL, sqlite3_errmsg(db));
 	} else {
 		logFile(INFO, "BD inicializada");
 	}
@@ -32,7 +32,7 @@ void executeStatement(char sql[]) {
 
 	res = sqlite3_exec(db, sql, NULL, 0, &error);
 	if (res != SQLITE_OK) {
-		logFile(ERROR, error);
+		logFile(ERRORL, error);
 		sqlite3_free(error);
 	} else {
 		logFile(INFO, "Sentencia ejecutada correctamente");
@@ -48,7 +48,7 @@ Data executeQuery(char sql[]) {
 	rc = sqlite3_prepare_v2(db, sql, -1, &stmt, 0);
 
 	if (rc != SQLITE_OK) {
-		logFile(ERROR, sqlite3_errmsg(db));
+		logFile(ERRORL, sqlite3_errmsg(db));
 	}
 
 	cols = sqlite3_column_count(stmt);
@@ -93,7 +93,7 @@ void addCityDB(char sql[], Ciudad d) {
 	sqlite3_bind_int(stmt, 3, d.cod_prov);
 
 	if ((sqlite3_step(stmt)) != SQLITE_DONE) {
-		logFile(ERROR, "Error al añadir ciudad");
+		logFile(ERRORL, "Error al añadir ciudad");
 	} else {
 		logFile(INFO, "Ciudad añadida");
 	}
@@ -115,7 +115,7 @@ void addEmployeeDB(char sql[], Empleado emp) {
 	SQLITE_STATIC);
 
 	if ((sqlite3_step(stmt)) != SQLITE_DONE) {
-		logFile(ERROR, "Error al añadir empleado");
+		logFile(ERRORL, "Error al añadir empleado");
 	} else {
 		logFile(INFO, "empleado añadido");
 	}
@@ -133,7 +133,7 @@ void addProductDB(char sql[], Producto p) {
 	sqlite3_bind_text(stmt, 4, p.desc_prod, strlen(p.desc_prod), SQLITE_STATIC);
 
 	if ((sqlite3_step(stmt)) != SQLITE_DONE) {
-		logFile(ERROR, "Error al añadir producto");
+		logFile(ERRORL, "Error al añadir producto");
 	} else {
 		logFile(INFO, "Producto añadido");
 	}
@@ -148,7 +148,7 @@ void deleteProductDB(char sql[], int id_prod) {
 	sqlite3_bind_int(stmt, 1, id_prod);
 
 	if ((sqlite3_step(stmt)) != SQLITE_DONE) {
-		logFile(ERROR, "Error al eliminar producto");
+		logFile(ERRORL, "Error al eliminar producto");
 	} else {
 		logFile(INFO, "Producto eliminado");
 	}
@@ -166,7 +166,7 @@ void updateProductDB(char sql[], Producto p) {
 	sqlite3_bind_int(stmt, 4, p.id_prod);
 
 	if ((sqlite3_step(stmt)) != SQLITE_DONE) {
-		logFile(ERROR, "Error al actualizar producto");
+		logFile(ERRORL, "Error al actualizar producto");
 	} else {
 		logFile(INFO, "Producto actualizado");
 	}
@@ -182,7 +182,7 @@ void addProvinceDB(char sql[], Provincia p) {
 	sqlite3_bind_text(stmt, 2, p.nom_prov, strlen(p.nom_prov), SQLITE_STATIC);
 
 	if ((sqlite3_step(stmt)) != SQLITE_DONE) {
-		logFile(ERROR, "Error al añadir provincia");
+		logFile(ERRORL, "Error al añadir provincia");
 	} else {
 		logFile(INFO, "Provincia añadida");
 	}
@@ -202,7 +202,7 @@ void addSupermarketDB(char sql[], Supermercado s) {
 	sqlite3_bind_int(stmt, 6, s.cod_ciu);
 
 	if ((sqlite3_step(stmt)) != SQLITE_DONE) {
-		logFile(ERROR, "Error al añadir supermercado");
+		logFile(ERRORL, "Error al añadir supermercado");
 	} else {
 		logFile(INFO, "Supermercado añadido");
 	}
@@ -217,7 +217,7 @@ void deleteSupermarketDB(char sql[], int cod_s) {
 	sqlite3_bind_int(stmt, 1, cod_s);
 
 	if ((sqlite3_step(stmt)) != SQLITE_DONE) {
-		logFile(ERROR, "Error al eliminar supermercado");
+		logFile(ERRORL, "Error al eliminar supermercado");
 	} else {
 		logFile(INFO, "Supermercado eliminado");
 	}
@@ -237,7 +237,7 @@ void updateSupermarketDB(char sql[], Supermercado s) {
 	sqlite3_bind_int(stmt, 6, s.cod_s);
 
 	if ((sqlite3_step(stmt)) != SQLITE_DONE) {
-		logFile(ERROR, "Error al actualizar supermercado");
+		logFile(ERRORL, "Error al actualizar supermercado");
 	} else {
 		logFile(INFO, "Supermercado actualizado");
 	}
@@ -253,7 +253,7 @@ void addWorksDB(char sql[], Trabaja t) {
 	sqlite3_bind_text(stmt, 2, t.dni_emp, strlen(t.dni_emp), SQLITE_STATIC);
 
 	if ((sqlite3_step(stmt)) != SQLITE_DONE) {
-		logFile(ERROR, "Error al añadir trabaja");
+		logFile(ERRORL, "Error al añadir trabaja");
 	} else {
 		logFile(INFO, "Trabaja añadido");
 	}
@@ -269,7 +269,7 @@ void addSellsDB(char sql[], Vende v) {
 	sqlite3_bind_int(stmt, 2, v.id_prod);
 
 	if ((sqlite3_step(stmt)) != SQLITE_DONE) {
-		logFile(ERROR, "Error al añadir vende");
+		logFile(ERRORL, "Error al añadir vende");
 	} else {
 		logFile(INFO, "Vende añadido");
 	}

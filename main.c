@@ -38,7 +38,7 @@ int main() {
 		prop.propName = propName;
 
 		char **propValues = malloc(sizeof(char*) * prop.numProp);
-		propValues[0] = "127.0.0.0";
+		propValues[0] = "127.0.0.1";
 		propValues[1] = "1024";
 		propValues[2] = "11111";
 		propValues[3] = "1";
