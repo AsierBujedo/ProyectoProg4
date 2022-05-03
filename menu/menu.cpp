@@ -1,7 +1,7 @@
 /*
- * menu.c
+ * menu.cpp
  *
- *  Created on: 1 abr. 2022
+ *  Created on: 3 may. 2022
  *      Author: Iker López
  */
 
@@ -12,8 +12,54 @@
 #include "../handler/properties/properties.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <winsock2.h>
+#include <iostream>
+
+using namespace std;
 
 Properties properties;
+SOCKET s;
+
+int prepareSocket() {
+	WSADATA wsaData;
+	struct sockaddr_in server;
+	char sendBuff[512], recvBuff[512];
+
+	printf("\nInitialising Winsock...\n");
+	if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) {
+		printf("Failed. Error Code : %d", WSAGetLastError());
+		return -1;
+	}
+
+	printf("Initialised.\n");
+
+	//SOCKET creation
+	if ((s = socket(AF_INET, SOCK_STREAM, 0)) == INVALID_SOCKET) {
+		printf("Could not create socket : %d", WSAGetLastError());
+		WSACleanup();
+		return -1;
+	}
+
+	printf("Socket created.\n");
+
+	server.sin_addr.s_addr = inet_addr(SERVER_IP);
+	server.sin_family = AF_INET;
+	server.sin_port = htons(SERVER_PORT);
+
+	//CONNECT to remote server
+	if (connect(s, (struct sockaddr*) &server, sizeof(server)) == SOCKET_ERROR) {
+		printf("Connection error: %d", WSAGetLastError());
+		closesocket(s);
+		WSACleanup();
+		return -1;
+	}
+
+	printf("Connection stablished with: %s (%d)\n", inet_ntoa(server.sin_addr),
+			ntohs(server.sin_port));
+
+	return 1;
+}
 
 // NIVEL DE MENÚ: 5 (administrador)
 void manageProdMenu() {
@@ -36,28 +82,31 @@ void manageProdMenu() {
 	switch (opt) {
 	case 1:
 		logFile(INFO, "Opción 1 de manageProdMenu seleccionada (addProduct)");
-		addProduct();
+		addProduct(); // PASAR A SERVER Y CAMBIAR
 		logFile(INFO, "manageProdMenu<<");
 		manageProdMenu();
 		break;
 
 	case 2:
-		logFile(INFO, "Opción 2 de manageProdMenu seleccionada (deleteProduct)");
-		deleteProduct();
+		logFile(INFO,
+				"Opción 2 de manageProdMenu seleccionada (deleteProduct)");
+		deleteProduct(); // PASAR A SERVER Y CAMBIAR
 		logFile(INFO, "manageProdMenu<<");
 		manageProdMenu();
 		break;
 
 	case 3:
-		logFile(INFO, "Opción 3 de manageProdMenu seleccionada (updateProduct)");
-		updateProduct();
+		logFile(INFO,
+				"Opción 3 de manageProdMenu seleccionada (updateProduct)");
+		updateProduct(); // PASAR A SERVER Y CAMBIAR
 		logFile(INFO, "manageProdMenu<<");
 		manageProdMenu();
 		break;
 
 	case 4:
-		logFile(INFO, "Opción 4 de manageProdMenu seleccionada (updateBDMenu<<)");
-		updateBDMenu();
+		logFile(INFO,
+				"Opción 4 de manageProdMenu seleccionada (updateBDMenu<<)");
+		updateBDMenu(); // PASAR A SERVER Y CAMBIAR
 		logFile(INFO, "manageProdMenu<<");
 		manageProdMenu();
 		break;
@@ -84,29 +133,33 @@ void manageSuperMenu() {
 
 	switch (opt) {
 	case 1:
-		logFile(INFO, "Opción 1 de manageSuperMenu seleccionada (addSupermarket)");
-		addSupermarket();
+		logFile(INFO,
+				"Opción 1 de manageSuperMenu seleccionada (addSupermarket)");
+		addSupermarket(); // PASAR A SERVER Y CAMBIAR
 		logFile(INFO, "manageSuperMenu<<");
 		manageSuperMenu();
 		break;
 
 	case 2:
-		logFile(INFO, "Opción 2 de manageSuperMenu seleccionada (deleteSupermarket)");
-		deleteSupermarket();
+		logFile(INFO,
+				"Opción 2 de manageSuperMenu seleccionada (deleteSupermarket)");
+		deleteSupermarket(); // PASAR A SERVER Y CAMBIAR
 		logFile(INFO, "manageSuperMenu<<");
 		manageSuperMenu();
 		break;
 
 	case 3:
-		logFile(INFO, "Opción 3 de manageSuperMenu seleccionada (updateSupermarket())");
-		updateSupermarket();
+		logFile(INFO,
+				"Opción 3 de manageSuperMenu seleccionada (updateSupermarket())");
+		updateSupermarket(); // PASAR A SERVER Y CAMBIAR
 		logFile(INFO, "manageSuperMenu<<");
 		manageSuperMenu();
 		break;
 
 	case 4:
-		logFile(INFO, "Opción 4 de manageSuperMenu seleccionada (updateBDMenu<<)");
-		updateBDMenu();
+		logFile(INFO,
+				"Opción 4 de manageSuperMenu seleccionada (updateBDMenu<<)");
+		updateBDMenu(); // PASAR A SERVER Y CAMBIAR
 		break;
 	}
 }
@@ -130,12 +183,14 @@ void updateBDMenu() {
 
 	switch (opt) {
 	case 1:
-		logFile(INFO, "Opción 1 de updateBDMenu seleccionada (>>manageSuperMenu)");
+		logFile(INFO,
+				"Opción 1 de updateBDMenu seleccionada (>>manageSuperMenu)");
 		manageSuperMenu();
 		break;
 
 	case 2:
-		logFile(INFO, "Opción 2 de updateBDMenu seleccionada (>>manageProdMenu)");
+		logFile(INFO,
+				"Opción 2 de updateBDMenu seleccionada (>>manageProdMenu)");
 		manageProdMenu();
 		break;
 
@@ -165,15 +220,16 @@ void queryBDMenu() {
 
 	switch (opt) {
 	case 1:
-		logFile(INFO, "Opción 1 de queryBDMenu seleccionada (showSupermarkets)");
-		showSupermarkets(true);
+		logFile(INFO,
+				"Opción 1 de queryBDMenu seleccionada (showSupermarkets)");
+		showSupermarkets(true); // PASAR A SERVER Y CAMBIAR
 		logFile(INFO, "mainMenu<<");
 		mainMenu(true);
 		break;
 
 	case 2:
 		logFile(INFO, "Opción 2 de queryBDMenu seleccionada (showProducts)");
-		showProducts(true);
+		showProducts(true); // PASAR A SERVER Y CAMBIAR
 		logFile(INFO, "mainMenu<<");
 		mainMenu(true);
 		break;
@@ -216,7 +272,18 @@ void adminMenu() {
 
 	case 3:
 		logFile(INFO, "Opción 3 de adminMenu seleccionada (showStatistics)");
-		showStatistics();
+//		showStatistics(); // PASAR A SERVER Y CAMBIAR
+
+		// SENDING command SHOWSTATS
+		strcpy(sendBuff, "SHOWSTATS");
+		strcpy(sendBuff, "SHOWSTATS-END");
+		send(s, sendBuff, sizeof(sendBuff), 0);
+
+		// RECEIVING response to command SHOWSTATS from the server
+		recv(s, recvBuff, sizeof(recvBuff), 0);
+//		printf("Suma = %s \n", recvBuff);
+		cout << " " << endl;
+
 		logFile(INFO, "mainMenu<<");
 		mainMenu(true);
 		break;
@@ -253,7 +320,18 @@ void userMenu() {
 
 	case 2:
 		logFile(INFO, "Opción 2 de userMenu seleccionada (showStatistics)");
-		showStatistics();
+//		showStatistics(); // PASAR A SERVER Y CAMBIAR
+
+		// SENDING command SHOWSTATS
+		strcpy(sendBuff, "SHOWSTATS");
+		strcpy(sendBuff, "SHOWSTATS-END");
+		send(s, sendBuff, sizeof(sendBuff), 0);
+
+		// RECEIVING response to command SHOWSTATS from the server
+		recv(s, recvBuff, sizeof(recvBuff), 0);
+//		printf("Suma = %s \n", recvBuff);
+		cout << " " << endl;
+
 		logFile(INFO, "mainMenu<<");
 		mainMenu(true);
 		break;
@@ -315,8 +393,7 @@ void mainMenu(bool b) {
 
 	printf("1. Entrar como usuario\n");
 	printf("2. Entrar como administrador\n");
-	printf("3. Entrar en modo servidor\n");
-	printf("4. Salir\n");
+	printf("3. Salir\n");
 	printf("Introduzca una opción: ");
 	fflush(stdout);
 	fgets(str, 2, stdin);
@@ -335,11 +412,8 @@ void mainMenu(bool b) {
 		break;
 
 	case 3:
-		logFile(INFO, "Lanzando servidor... (>>ServerMode)");
-		initServer();
-
-	case 4:
-		logFile(END, "Opción 3 de mainMenu seleccionada (ejecución finalizada)");
+		logFile(END,
+				"Opción 3 de mainMenu seleccionada (ejecución finalizada)");
 		exit(0);
 	}
 
